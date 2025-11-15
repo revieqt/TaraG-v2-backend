@@ -1,0 +1,47 @@
+{
+  "title": "User Manual",
+  "description": "This manual provides guidance on how to use TaraG and its features effectively.",
+  "updatedOn": "2025-08-26",
+  "sections": [
+    {
+      "subtitle": "1. Getting Started",
+      "description": "Download the TaraG app from the official store. Sign up using your email, Google account, or guest login. Complete your profile to personalize your experience."
+    },
+    {
+      "subtitle": "2. Navigating the App",
+      "description": "The home screen provides quick access to your location, itineraries, routes, and weather updates. Use the bottom navigation bar to switch between main features."
+    },
+    {
+      "subtitle": "3. Creating an Itinerary",
+      "description": "Tap 'Itinerary' to create, edit, or delete trips. Add destinations, travel dates, and notes. You can also use the AI assistant to suggest itineraries and convert them into saved plans."
+    },
+    {
+      "subtitle": "4. Using Routes",
+      "description": "Select a start and end point to generate routes. Choose your transport mode (walk, drive, public transport). The app will show distance, estimated travel time, and alerts."
+    },
+    {
+      "subtitle": "5. Group Travel",
+      "description": "Create a travel group and invite members. Share itineraries, track member locations in real-time, and use the group chat to coordinate during trips."
+    },
+    {
+      "subtitle": "6. Weather Forecasts",
+      "description": "View the current weather and extended forecast for your selected city or current location. Receive alerts for weather conditions that may affect your trip."
+    },
+    {
+      "subtitle": "7. Emergency Features",
+      "description": "Use the emergency button to quickly send an alert to your registered emergency contact. The app also provides information about nearby hospitals, police, and fire stations."
+    },
+    {
+      "subtitle": "8. Bill Splitting",
+      "description": "Record expenses during your trip and split costs among group members. TaraG will automatically calculate each member’s share."
+    },
+    {
+      "subtitle": "9. Profile and Settings",
+      "description": "Manage your personal details, profile photo, and account preferences. Customize the app theme (light/dark mode) and adjust notification settings."
+    },
+    {
+      "subtitle": "10. Support",
+      "description": "If you encounter issues, visit the Support Center in the app or contact us directly at [Your Support Email or Website]."
+    }
+  ]
+}

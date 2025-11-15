@@ -1,0 +1,59 @@
+{
+  "title": "TaraG Terms and Conditions",
+  "description": "By using TaraG, you agree to the following Terms and Conditions. Please read carefully before continuing.",
+  "updatedOn": "2025-08-26",
+  "sections": [
+    {
+      "subtitle": "1. Acceptance of Terms",
+      "description": "By creating an account or using the App, you confirm that you have read, understood, and agreed to these Terms. If you do not agree, you may not use the App."
+    },
+    {
+      "subtitle": "2. User Accounts",
+      "description": "You must provide accurate and up-to-date information when creating an account. You are responsible for maintaining the confidentiality of your login credentials. You agree not to share your account or impersonate another person."
+    },
+    {
+      "subtitle": "3. Use of the App",
+      "description": "TaraG provides features such as itineraries, group travel, geolocation, weather forecasts, emergency alerts, and bill splitting. You agree to use these features only for lawful purposes. You must not misuse the App, interfere with its functionality, or attempt unauthorized access."
+    },
+    {
+      "subtitle": "4. Location Services",
+      "description": "Some features require access to your location. By enabling location services, you consent to TaraG collecting and processing your geolocation data. Accuracy of location data is not guaranteed."
+    },
+    {
+      "subtitle": "5. Payments and Subscriptions",
+      "description": "Payments are processed securely through third-party providers (such as PayMongo and Stripe). By making a payment, you agree to the terms and fees set by these providers. Refunds and cancellations are subject to our refund policy."
+    },
+    {
+      "subtitle": "6. Privacy",
+      "description": "We value your privacy. Our Privacy Policy explains how we collect, use, and protect your data. By using the App, you consent to the collection and processing of your information in accordance with our Privacy Policy."
+    },
+    {
+      "subtitle": "7. Emergency Alerts Disclaimer",
+      "description": "The App may provide emergency alerts and nearby service information (e.g., hospitals, police, fire stations). These features are for assistance only and should not be relied upon as a substitute for official emergency services. We do not guarantee delivery or accuracy of emergency alerts."
+    },
+    {
+      "subtitle": "8. Intellectual Property",
+      "description": "All content, trademarks, and code within the App remain our property. You may not copy, modify, or distribute any part of the App without prior written consent."
+    },
+    {
+      "subtitle": "9. Limitation of Liability",
+      "description": "TaraG is provided 'as is' and 'as available.' We are not liable for damages arising from use or inability to use the App, including but not limited to data loss, inaccuracies, or service interruptions."
+    },
+    {
+      "subtitle": "10. Termination",
+      "description": "We may suspend or terminate your account if you violate these Terms. You may stop using the App at any time by deleting your account."
+    },
+    {
+      "subtitle": "11. Governing Law",
+      "description": "These Terms shall be governed by and interpreted in accordance with the laws of the Republic of the Philippines."
+    },
+    {
+      "subtitle": "12. Changes to Terms",
+      "description": "We may update these Terms from time to time. Updates will be posted in the App with a revised 'Last Updated' date."
+    },
+    {
+      "subtitle": "13. Contact Us",
+      "description": "If you have questions or concerns about these Terms, please contact us at: [Your Support Email or Website]"
+    }
+  ]
+}

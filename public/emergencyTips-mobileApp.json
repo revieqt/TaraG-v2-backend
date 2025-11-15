@@ -1,0 +1,63 @@
+[
+  {
+    "title": "Health Emergency",
+    "description": "Guidelines to follow during medical or health-related emergencies.",
+    "updatedOn": "2025-08-26",
+    "sections": [
+      {
+        "subtitle": "Call for Help",
+        "description": "Dial your local emergency hotline (e.g., 911 in the Philippines) or contact the nearest hospital immediately."
+      },
+      {
+        "subtitle": "Provide Basic First Aid",
+        "description": "If trained, perform CPR for unconscious individuals or apply basic wound care until professionals arrive."
+      },
+      {
+        "subtitle": "Stay Calm and Reassure",
+        "description": "Keep the patient calm and comfortable while waiting for emergency responders."
+      }
+    ]
+  },
+  {
+    "title": "Police / Safety Emergency",
+    "description": "Steps to take when faced with crimes, safety threats, or suspicious activities.",
+    "updatedOn": "2025-08-26",
+    "sections": [
+      {
+        "subtitle": "Contact Police Immediately",
+        "description": "Dial 911 or your local police station. Provide clear details about the situation and location."
+      },
+      {
+        "subtitle": "Stay Safe",
+        "description": "Avoid confrontation. Move to a secure area if possible while waiting for authorities."
+      },
+      {
+        "subtitle": "Provide Accurate Information",
+        "description": "When reporting, remain calm and give specific details such as descriptions of people, vehicles, or events."
+      }
+    ]
+  },
+  {
+    "title": "Fire Emergency",
+    "description": "Safety measures to follow during fire incidents.",
+    "updatedOn": "2025-08-26",
+    "sections": [
+      {
+        "subtitle": "Evacuate Immediately",
+        "description": "Do not attempt to save belongings. Leave the building quickly and safely."
+      },
+      {
+        "subtitle": "Call the Fire Department",
+        "description": "Dial 911 or your local fire hotline. Provide exact location and nature of the fire."
+      },
+      {
+        "subtitle": "Stay Low and Cover Nose",
+        "description": "If there is smoke, stay close to the ground and cover your nose and mouth with cloth."
+      },
+      {
+        "subtitle": "Do Not Use Elevators",
+        "description": "Always use stairs when evacuating during a fire emergency."
+      }
+    ]
+  }
+]

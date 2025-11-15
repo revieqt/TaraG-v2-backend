@@ -1,0 +1,26 @@
+{
+  "title": "About TaraG",
+  "description": "TaraG is an all-in-one travel companion app that makes every journey safer, smarter, and more enjoyable. It helps travelers navigate easily with built-in maps, create and manage itineraries, and stay updated with real-time weather forecasts. Whether you’re traveling alone or with friends, TaraG keeps everyone connected through group trip features, shared itineraries, live member tracking, and in-app chat.",
+  "updatedOn": "2025-08-26",
+  "sections": [
+    {
+      "subtitle": "Version",
+      "description": "Version 1.0"
+
+    },
+    {
+      "subtitle": "Our Team",
+      "description": "We are a team of dedicated students passionate about technology, innovation, and problem-solving. As learners, we collaborate to apply our skills in real-world projects, turning ideas into meaningful solutions while continuously growing through research, teamwork, and hands-on experience."
+
+    },
+    {
+      "subtitle": "Capstone Project",
+      "description": "This app was created as a capstone project for the Bachelor of Science in Information Technology program at St. Cecilia's College Cebu - Inc."
+    },
+    {
+      "subtitle": "Acknowledgement",
+      "description": "We would like to express our gratitude to our Capstone Instructor, Mr. Jhon Ericson Brigildo, and our Capstone Adviser, Mr. Rexy Jade Yangyang and peers for their support and guidance throughout the development of this app."
+    }
+    
+  ]
+}

@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS specific
+Thumbs.db
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# User uploaded files and temporary files
+uploads/profileImages/*
+uploads/temp/*
+!uploads/profileImages/.gitkeep
+!uploads/temp/.gitkeep
+
+# Node-specific
+.pnp
+.pnp.js
+
+# Testing
+.nyc_output/
+coverage/

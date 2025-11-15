@@ -1,0 +1,23 @@
+# render.yaml
+services:
+  - type: web
+    name: tarag-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000  # Render uses this internally; Express will bind to it
+      - key: FIREBASE_PROJECT_ID
+        value: taralets-3adb8
+      - key: FIREBASE_PRIVATE_KEY_ID
+        value: 59995bea0957022104ea4823b3999bccb3789cf6
+      - key: FIREBASE_CLIENT_EMAIL
+        value: firebase-adminsdk-fbsvc@taralets-3adb8.iam.gserviceaccount.com
+      - key: FIREBASE_CLIENT_ID
+        value: "114687722849656157420"
+      - key: FIREBASE_CLIENT_X509_CERT_URL
+        value: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40taralets-3adb8.iam.gserviceaccount.com
+      - key: FIREBASE_PRIVATE_KEY
+        value: "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDSd+LmP+K17yp9\nBkmFllmDPtXo6WGxrOrFDQ+45Dm74/2HpqFfKxe8uSybbgURBkL1hps55e3o96oI\nkx4/vzl/7GJFR8WksLxQbwAO6gX5Hy0fCbNutnQuPcfrX0kNdY2B3bTztqg4+O03\nV/ii60Q60KA+Ee97bscy8nBRgiZL2tNQw9zPfss5lig5OMR2N4dBXM0zZuLxR2Or\nNOU3P+vEuYj+Cy19k9K/4MQzyDzxhwrQtDo7U/i5ckMcESjbaYW5XNypyOiJxJDs\nAulg8gT0CnaAd9L55enW2/Th4HgCfk5E4LpAPpU0PuTfW1k1Gi8meeQeQ6Oxk5Oq\nx0YG8Qe1AgMBAAECggEAFM9lz/5hHDwZp2MHwf2rvB5qaC0rS7YdQH6aH13xl3Jj\njxYavp40KqTklDm8poJH/J7imkbxzyct2MszInp15QAqd08xa6dN92YCS3c4P/ml\nLHx5EWlY83mIWu2A+6Oz6jNRwQc+euOiEObR3soEZQxby8daNootiAwQrv5/auB6\nN6OdnxH/ABvrla/8q7LIudXyjqi4XUcPxvx1IsGwsh59WAXbdS0/n5J26gyaGOnv\nGmXGR5T1BdKJ7HkuZfkSOUcUMEgzdApcGjK2wHYohrnrtUhE3gSW/fFQZkAxtylg\ngkKULtmxXTKBCLWcPAKmEzQVmjvE/lDQ9twHau90AQKBgQDveITLs5CW4mpXqK7n\n8E9CAPo5BooZBx9fWgIq+0omaNOrl56DmIzRUJLnB6LhdaJ840hZjeP656m7wJcp\nQiJNY2QfHy9EkO89c8whOcyu+oVQMUGF5OqLgCbm4zTaO0oPktAqnk04c5p/O5aP\nd4ZoMz/9rLMv7lb5VKqsadDAZQKBgQDg/uPWN8IIpHzkum6Wh9M8iSD7qE7rz6F/\nBX67h4rPUnLYFgV+edvVUD+zl3a7+ic9etGeaVvmAYYrHCTeIYQ1tvKE/mq3ty5y\nQyoaM0cdNXkLKSEKdpVnFomBXrnXAi7ilN29FlU5twIEfFDrLYC7V1QZtcbX3i/9\nRcvCbNCtEQKBgQC5w70IJACa+4LRA1rDM+jX49g32nnQVnUgy7r4yrzHtPPWnaRq\nozFBwoZiz8qrqUxmIw3h4q8i2QkTS6A3ckUX0W0+sztArknYWvbUI3lDl7VI8xzI\nGD9V/hCvdTtvuySFljcDiI+QpiUIZBo0qtzKAk+2onzSRsqTWfmYC/HS/QKBgQDM\nTQarPMQWvu2db9/9FeZsgIQPn3vSSh31zhKOy/vyV4ZqykxA1PwVzSGavL0W4YYC\nIGT49+h3iQjAWnTrsvlvIOlEdBSJL2+gV3aChe9cCXMY/EbBTn5JNkCz1UTghF34\nZn6WNRI8Lv5I/m0nr5DGC/0Uv2eIGnvu+hKUP+SYUQKBgQDQvCAAlcAlVHBSQXWY\n4WpWxfnIgbE6rwJQAZDA0WvKhjUjFbcCwuNGvoyQtOcKBJ3hQD8vutwIooQrMQlA\nmjjOlNQnf1YcljclKfBtqjjkaa5ndpmeyTXLlv01dDNd+f8zbLCQkXXPKvnh3TMa\nQqG0dPMQEVE7KGMRPiICMYui9A==\n-----END PRIVATE KEY-----\n"

@@ -1,0 +1,51 @@
+{
+  "title": "Privacy Policy",
+  "description": "This Privacy Policy explains how TaraG collects, uses, and protects your information when you use the App.",
+  "updatedOn": "2025-08-26",
+  "sections": [
+    {
+      "subtitle": "1. Information We Collect",
+      "description": "We may collect personal information such as your name, email, contact details, location data, itinerary details, and payment information. We also collect device information and app usage statistics."
+    },
+    {
+      "subtitle": "2. How We Use Your Information",
+      "description": "Your information is used to provide and improve our services, including itineraries, group travel features, weather updates, payments, and emergency alerts. We may also use data for troubleshooting, analytics, and user support."
+    },
+    {
+      "subtitle": "3. Location Data",
+      "description": "Some features of the App require access to your location. Location data is used to provide navigation, group tracking, nearby services, and emergency alerts. You may disable location access in your device settings, but some features may not function properly."
+    },
+    {
+      "subtitle": "4. Data Storage",
+      "description": "We use Firebase, CouchDB, and local device storage to store user data. Data may be synchronized between offline and online storage when connectivity is available."
+    },
+    {
+      "subtitle": "5. Payments",
+      "description": "Payment information is processed securely through third-party providers such as PayMongo and Stripe. We do not store your full payment details on our servers."
+    },
+    {
+      "subtitle": "6. Sharing of Information",
+      "description": "We do not sell or rent your personal information. We may share data only with trusted third-party services necessary for app functionality, legal requirements, or with your consent."
+    },
+    {
+      "subtitle": "7. Data Security",
+      "description": "We implement reasonable security measures to protect your information. However, no method of transmission or storage is 100% secure, and we cannot guarantee absolute security."
+    },
+    {
+      "subtitle": "8. Children’s Privacy",
+      "description": "TaraG is not intended for children under the age of 13. We do not knowingly collect personal data from children. If we discover that a child has provided us with personal information, we will take steps to delete it."
+    },
+    {
+      "subtitle": "9. Your Rights",
+      "description": "You have the right to access, update, or delete your personal data. You may also request restrictions on how your data is processed. Contact us to exercise these rights."
+    },
+    {
+      "subtitle": "10. Changes to this Privacy Policy",
+      "description": "We may update this Privacy Policy from time to time. Updates will be posted in the App with a revised 'Last Updated' date."
+    },
+    {
+      "subtitle": "11. Contact Us",
+      "description": "If you have questions or concerns about this Privacy Policy, please contact us at: [Your Support Email or Website]"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "title": "How Does the SOS Feature Work?",
+  "description": "This manual explains how to use the SOS and safety functions in TaraG to stay secure during emergencies.",
+  "updatedOn": "2025-10-11",
+  "sections": [
+    {
+      "subtitle": "1. About the SOS Feature",
+      "description": "The SOS feature in TaraG allows you to quickly send an emergency alert to your trusted contacts and local authorities. It helps ensure you get immediate assistance when in danger or distress."
+    },
+    {
+      "subtitle": "2. Setting Up Emergency Contacts",
+      "description": "Before using SOS, go to your profile settings and register at least one emergency contact. This contact will receive alerts and your live location whenever SOS is triggered."
+    },
+    {
+      "subtitle": "3. Triggering the SOS Alert",
+      "description": "Press and hold the SOS button on the home or safety screen for a few seconds. Once activated, TaraG will send your current location, emergency type, and alert message to your registered contacts."
+    },
+    {
+      "subtitle": "4. Emergency Modes",
+      "description": "You can select the type of emergency before or during activation. Options include Medical, Police/Security, Fire, Natural Disaster, or Other Emergency. This helps responders understand the situation better."
+    },
+    {
+      "subtitle": "5. Location and Nearby Assistance",
+      "description": "When SOS is active, TaraG automatically fetches nearby emergency services such as hospitals, police stations, and fire departments. You can tap to call or navigate to them directly from the map view."
+    },
+    {
+      "subtitle": "6. Auto-Notifications and Alerts",
+      "description": "Your emergency contact will receive a message containing your live GPS location, timestamp, and emergency type. A loud buzzer alert and visual indicator confirm that the SOS is active."
+    },
+    {
+      "subtitle": "7. Ending the SOS State",
+      "description": "After you are safe, tap 'Deactivate SOS' or 'End Alert' to turn off the emergency state. The app will notify your contact that you are safe and stop live location sharing."
+    },
+    {
+      "subtitle": "8. Safety Logs (Admin Use)",
+      "description": "All SOS activations are recorded as safety logs in the system for monitoring and verification. Admins can review, categorize, and respond to each report as needed."
+    },
+    {
+      "subtitle": "9. Tips for Using SOS Effectively",
+      "description": "• Keep your location services turned on.\n• Make sure your emergency contact information is up to date.\n• Only trigger SOS for real emergencies.\n• Familiarize yourself with nearby hospitals or police stations when traveling."
+    },
+    {
+      "subtitle": "10. Support and Assistance",
+      "description": "If the SOS feature does not work as expected, go to the Support Center in the app or contact the TaraG team through [Your Support Email or Website]."
+    }
+  ]
+}
