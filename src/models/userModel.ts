@@ -22,6 +22,7 @@ export interface IUser extends Document {
   safetyState: {
     isInAnEmergency: boolean;
     emergencyType: string;
+    emergencyContact?: string;
   };
   visibilitySettings: {
     isProfilePublic: boolean;
@@ -72,7 +73,8 @@ const userSchema = new Schema<IUser>({
   updatedOn: { type: Date, default: Date.now },
   safetyState: {
     isInAnEmergency: { type: Boolean, default: false },
-    emergencyType: { type: String, default: "" }
+    emergencyType: { type: String, default: "" },
+    emergencyContact: { type: String, default: "" }
   },
   visibilitySettings: {
     isProfilePublic: { type: Boolean, default: true },

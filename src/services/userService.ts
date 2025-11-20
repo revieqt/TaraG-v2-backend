@@ -100,6 +100,7 @@ export const updateStringFieldService = async (
       'status',
       'profileImage',
       'safetyState.emergencyType',
+      'safetyState.emergencyContact',
       'taraBuddySettings.preferredGender'
     ];
 

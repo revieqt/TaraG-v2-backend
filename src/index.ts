@@ -25,14 +25,18 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Import routes
-import authRoutes from './routes/auth';
-import weatherRoutes from './routes/weather';
-import userRoutes from './routes/user';
+import authRouter from './routes/auth';
+import weatherRouter from './routes/weather';
+import userRouter from './routes/user';
+import amenitiesRouter from './routes/amenities';
+import safetyRouter from './routes/safety';
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/weather', weatherRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/auth', authRouter);
+app.use('/api/weather', weatherRouter);
+app.use('/api/users', userRouter);
+app.use('/api/amenities', amenitiesRouter);
+app.use('/api/safety', safetyRouter);
 
 app.get('/', (_req, res) => {
   res.send('TaraG Backend is Running');
