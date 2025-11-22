@@ -76,6 +76,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const result = await loginUser(identifier, password);
+    console.log('✅ Login successful for user:', result.user.email);
     res.status(200).json(result);
   } catch (error: any) {
     if (error.message === 'Invalid credentials') {
@@ -213,7 +214,15 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     const secretKey = process.env.JWT_SECRET || 'default_secret';
 
     // Verify refresh token
-    const decoded = jwt.verify(refreshToken, secretKey) as { id: string; userId: string };
+    let decoded: any;
+    try {
+      decoded = jwt.verify(refreshToken, secretKey);
+    } catch (error: any) {
+      if (error.name === 'TokenExpiredError') {
+        return res.status(401).json({ error: 'Refresh token expired, please login again' });
+      }
+      return res.status(401).json({ error: 'Invalid refresh token' });
+    }
 
     // Find user to ensure they still exist
     const User_model = require('../models/userModel').default;
@@ -223,30 +232,25 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'User not found' });
     }
 
-    // Generate new tokens
+    // Generate new tokens with proper expiration
     const newAccessToken = jwt.sign(
       { id: user._id.toString(), userId: user._id.toString(), email: user.email },
       secretKey,
-      { expiresIn: '1h' }
+      { expiresIn: '1h' } // 1 hour
     );
 
     const newRefreshToken = jwt.sign(
       { id: user._id.toString(), userId: user._id.toString() },
       secretKey,
-      { expiresIn: '7d' }
+      { expiresIn: '14d' } // 14 days
     );
 
+    console.log('✅ Token refreshed successfully for user:', user.email);
     res.status(200).json({
       accessToken: newAccessToken,
       refreshToken: newRefreshToken
     });
   } catch (error: any) {
-    if (error.name === 'TokenExpiredError') {
-      return res.status(401).json({ error: 'Refresh token expired' });
-    }
-    if (error.name === 'JsonWebTokenError') {
-      return res.status(401).json({ error: 'Invalid refresh token' });
-    }
     console.error('Token refresh error:', error);
     res.status(500).json({ error: 'Failed to refresh token' });
   }

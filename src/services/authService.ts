@@ -61,13 +61,13 @@ export const loginUser = async (identifier: string, password: string): Promise<L
     const accessToken = jwt.sign(
       { id: userId, userId: userId, email: user.email },
       secretKey,
-      { expiresIn: '1h' }
+      { expiresIn: '1h' } // 1 hour
     );
     
     const refreshToken = jwt.sign(
       { id: userId, userId: userId },
       secretKey,
-      { expiresIn: '7d' }
+      { expiresIn: '14d' } // 14 days
     );
 
     const userObject = user.toObject();
