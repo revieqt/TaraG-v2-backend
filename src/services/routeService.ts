@@ -78,74 +78,65 @@ export async function getRoutes(data: {
     });
 
     console.log('✅ OpenRouteService response:', response.status);
+    console.log('📍 Available routes:', response.data.routes?.length || 0);
 
-    // Handle single route only
-    const route = response.data.routes ? response.data.routes[0] : response.data.route;
+    // Get all available routes (up to 3)
+    const routes = response.data.routes || (response.data.route ? [response.data.route] : []);
     
-    if (!route) {
-      throw new Error('No route found in response');
+    if (!routes || routes.length === 0) {
+      throw new Error('No routes found in response');
     }
 
-    // Process segments with steps
-    const segments = route.segments?.map((segment: any) => ({
-      distance: segment.distance,
-      duration: segment.duration,
-      steps: segment.steps?.map((step: any) => ({
-        distance: step.distance,
-        duration: step.duration,
-        instruction: step.instruction,
-        name: step.name || undefined,
-        way_points: step.way_points
-      })) || []
-    })) || [];
+    // Process each route and return up to 3 alternatives
+    const processRoute = (route: any) => {
+      const segments = route.segments?.map((segment: any) => ({
+        distance: segment.distance,
+        duration: segment.duration,
+        steps: segment.steps?.map((step: any) => ({
+          distance: step.distance,
+          duration: step.duration,
+          instruction: step.instruction,
+          name: step.name || undefined,
+          way_points: step.way_points
+        })) || []
+      })) || [];
 
-    // Log the raw geometry to debug
-    console.log('🔍 Raw geometry from ORS:', {
-      type: typeof route.geometry,
-      hasCoordinates: !!route.geometry?.coordinates,
-      coordinateCount: route.geometry?.coordinates?.length || 0,
-      geometryType: route.geometry?.type,
-      firstCoord: route.geometry?.coordinates?.[0],
-      isString: typeof route.geometry === 'string'
-    });
+      // Handle geometry - could be coordinates array or encoded string
+      let geometryCoordinates: [number, number, number?][] = [];
+      
+      if (route.geometry?.coordinates && Array.isArray(route.geometry.coordinates)) {
+        geometryCoordinates = route.geometry.coordinates;
+      } else if (typeof route.geometry === 'string') {
+        const decoded = decodePolyline(route.geometry);
+        geometryCoordinates = decoded.map(coord => [coord[0], coord[1]]);
+      } else if (route.geometry && typeof route.geometry === 'object' && 'coordinates' in route.geometry) {
+        geometryCoordinates = route.geometry.coordinates || [];
+      }
 
-    // Handle geometry - could be coordinates array or encoded string
-    let geometryCoordinates: [number, number, number?][] = [];
-    
-    if (route.geometry?.coordinates && Array.isArray(route.geometry.coordinates)) {
-      // Already decoded coordinates
-      geometryCoordinates = route.geometry.coordinates;
-      console.log('✅ Using decoded coordinates from API');
-    } else if (typeof route.geometry === 'string') {
-      // Encoded polyline string
-      console.log('🔧 Decoding polyline string');
-      const decoded = decodePolyline(route.geometry);
-      geometryCoordinates = decoded.map(coord => [coord[0], coord[1]]);
-    } else if (route.geometry && typeof route.geometry === 'object' && 'coordinates' in route.geometry) {
-      // GeoJSON format
-      geometryCoordinates = route.geometry.coordinates || [];
-    }
-
-    const result = {
-      geometry: {
-        coordinates: geometryCoordinates,
-        type: 'LineString'
-      },
-      distance: route.summary.distance, // meters
-      duration: route.summary.duration, // seconds
-      bbox: route.bbox || undefined,
-      segments
+      return {
+        geometry: {
+          coordinates: geometryCoordinates,
+          type: 'LineString'
+        },
+        distance: route.summary.distance, // meters
+        duration: route.summary.duration, // seconds
+        bbox: route.bbox || undefined,
+        segments
+      };
     };
 
-    console.log('🎯 Route result with segments:', {
-      distance: `${(result.distance / 1000).toFixed(2)} km`,
-      duration: `${Math.round(result.duration / 60)} min`,
-      segmentCount: segments.length,
-      totalSteps: segments.reduce((acc: number, seg: any) => acc + (seg.steps?.length || 0), 0),
-      coordinateCount: result.geometry.coordinates.length
+    // Process up to 3 routes
+    const results = routes.slice(0, 3).map(processRoute);
+    console.log('🎯 Routes generated:', {
+      totalRoutes: results.length,
+      routes: results.map((r: any) => ({
+        distance: `${(r.distance / 1000).toFixed(2)} km`,
+        duration: `${Math.round(r.duration / 60)} min`,
+        segments: r.segments.length
+      }))
     });
     
-    return result;
+    return results;
   } catch (error) {
     console.error('❌ OpenRouteService error:', error);
     throw error;

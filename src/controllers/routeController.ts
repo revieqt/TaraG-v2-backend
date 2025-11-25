@@ -22,14 +22,18 @@ export const getRoutesHandler = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Location must be an array with at least 2 points.' });
     }
     
-    const route = await getRoutes({ location, mode });
-    console.log('✅ Route generated successfully with segments and steps:', {
-      distance: `${(route.distance / 1000).toFixed(2)} km`,
-      duration: `${Math.round(route.duration / 60)} min`,
-      segmentCount: route.segments?.length || 0,
-      totalSteps: route.segments?.reduce((acc: number, seg: any) => acc + (seg.steps?.length || 0), 0) || 0
+    const routes = await getRoutes({ location, mode });
+    console.log('✅ Routes generated successfully:', {
+      count: routes.length,
+      routes: routes.map((r: any, i: number) => ({
+        index: i + 1,
+        distance: `${(r.distance / 1000).toFixed(2)} km`,
+        duration: `${Math.round(r.duration / 60)} min`,
+        segmentCount: r.segments?.length || 0,
+        totalSteps: r.segments?.reduce((acc: number, seg: any) => acc + (seg.steps?.length || 0), 0) || 0
+      }))
     });
-    res.json(route);
+    res.json({ routes });
   } catch (error) {
     console.error('❌ getRoutesHandler error:', error);
     res.status(500).json({ error: 'Failed to fetch routes.', details: error instanceof Error ? error.message : 'Unknown error' });
