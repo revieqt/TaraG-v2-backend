@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { logAction } from '../utils/logAction';
 import { registerUser, loginUser, sendVerificationCode, verifyUserEmail, resetPassword, updatePassword } from '../services/authService';
 
 interface AuthRequest extends Request {
@@ -25,9 +26,22 @@ export const passwordReset = async (req: Request, res: Response) => {
     }
 
     await resetPassword(identifier, newPassword);
+    await logAction(req, {
+      action: "PASSWORD_RESET_SUCCESS",
+      module: "AUTH",
+      severity: "info",
+      description: `password reset success`,
+      userId: userId,
+    });
     res.status(200).json({ message: 'Password reset successful' });
   } catch (error: any) {
-    console.error('Password reset error:', error);
+    await logAction(req, {
+      action: "PASSWORD_RESET_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: `attempt to reset password failed`,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: error.message || 'Failed to reset password' });
   }
 };
@@ -36,9 +50,6 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
   try {
     const { oldPassword, newPassword, confirmPassword } = req.body;
     const userId = req.user?.id || req.user?.userId;
-
-    console.log('🟡 changePassword - req.user:', req.user);
-    console.log('🟡 changePassword - userId extracted:', userId);
 
     if (!userId) {
       return res.status(401).json({ error: 'Authentication required' });
@@ -53,16 +64,44 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'New password must be at least 6 characters long' });
     }
 
+    await logAction(req, {
+      action: "PASSWORD_UPDATE_SUCCESS",
+      module: "AUTH",
+      severity: "info",
+      description: `password update success`,
+      userId: userId,
+    });
     await updatePassword(userId, oldPassword, newPassword, confirmPassword);
+    
     res.status(200).json({ message: 'Password updated successfully' });
   } catch (error: any) {
     if (error.message === 'New passwords do not match') {
+      await logAction(req, {
+        action: "PASSWORD_UPDATE_ATTEMPT_FAILED",
+        module: "AUTH",
+        severity: "warning",
+        description: `New passwords do not match`,
+        userId: req.body.userId,
+      });
       return res.status(400).json({ error: 'New passwords do not match' });
     }
     if (error.message === 'Current password is incorrect') {
+      await logAction(req, {
+        action: "PASSWORD_UPDATE_ATTEMPT_FAILED",
+        module: "AUTH",
+        severity: "warning",
+        description: `Current password is incorrect`,
+        userId: req.body.userId,
+      });
       return res.status(401).json({ error: 'Current password is incorrect' });
     }
-    console.error('Password update error:', error);
+    await logAction(req, {
+      action: "PASSWORD_UPDATE_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: error,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: error.message || 'Failed to update password' });
   }
 };
@@ -76,13 +115,32 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const result = await loginUser(identifier, password);
-    console.log('✅ Login successful for user:', result.user.email);
+    await logAction(req, {
+      action: "LOGIN_SUCCESS",
+      module: "AUTH",
+      severity: "info",
+      description: `Login success`,
+      userId: req.body.userId,
+    });
     res.status(200).json(result);
   } catch (error: any) {
     if (error.message === 'Invalid credentials') {
+      await logAction(req, {
+        action: "LOGIN_ATTEMPT_FAILED",
+        module: "AUTH",
+        severity: "warning",
+        description: error,
+        userId: req.body.userId,
+      });
       return res.status(401).json({ error: 'Invalid email/username or password' });
     }
-    console.error('Login error:', error);
+    await logAction(req, {
+      action: "LOGIN_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: error,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -96,9 +154,22 @@ export const sendEmailVerification = async (req: Request, res: Response) => {
     }
 
     const code = await sendVerificationCode(email);
+    await logAction(req, {
+      action: "EMAIL_VERIFICATION_CODE_SENT",
+      module: "AUTH",
+      severity: "info",
+      description: `verification code sent to ${email}`,
+      userId: req.body.userId,
+    });
     res.status(200).json({ code });
   } catch (error: any) {
-    console.error('Send verification error:', error);
+    await logAction(req, {
+      action: "EMAIL_VERIFICATION_CODE_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: error,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: error.message || 'Failed to send verification code' });
   }
 };
@@ -112,20 +183,38 @@ export const verifyEmail = async (req: Request, res: Response) => {
     }
 
     await verifyUserEmail(email, code, sentCode);
+    await logAction(req, {
+      action: "VERIFY_EMAIL_SUCCESS",
+      module: "AUTH",
+      severity: "info",
+      description: email +' verified successfully',
+      userId: req.body.userId,
+    });
     res.status(200).json({ message: 'Email verified successfully' });
   } catch (error: any) {
     if (error.message === 'Invalid verification code') {
+      await logAction(req, {
+        action: "VERIFY_EMAIL_ATTEMPT_FAILED",
+        module: "AUTH",
+        severity: "warning",
+        description: error,
+        userId: req.body.userId,
+      });
       return res.status(400).json({ error: 'Invalid verification code' });
     }
-    console.error('Email verification error:', error);
+    await logAction(req, {
+      action: "VERIFY_EMAIL_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: error,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: error.message || 'Failed to verify email' });
   }
 };
 
 export const register = async (req: Request, res: Response) => {
   try {
-    console.log('Received registration request body:', req.body);
-    
     const {
       fname,
       lname,
@@ -138,18 +227,6 @@ export const register = async (req: Request, res: Response) => {
       type
     } = req.body;
 
-    // Log individual field values
-    console.log('Validation check values:', {
-      fname: !!fname,
-      username: !!username,
-      email: !!email,
-      password: !!password,
-      bdate: !!bdate,
-      gender: !!gender,
-      type: !!type
-    });
-
-    // Basic validation
     if (!fname || !username || !email || !password || !bdate || !gender || !type) {
       const missingFields = [];
       if (!fname) missingFields.push('fname');
@@ -166,13 +243,11 @@ export const register = async (req: Request, res: Response) => {
       });
     }
 
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    // Password strength validation
     if (password.length < 6) {
       return res.status(400).json({ error: 'Password must be at least 6 characters long' });
     }
@@ -192,13 +267,32 @@ export const register = async (req: Request, res: Response) => {
     // Remove password from response
     const userResponse = user.toObject();
     delete userResponse.password;
-
+    await logAction(req, {
+      action: "REGISTER_SUCCESS",
+      module: "AUTH",
+      severity: "info",
+      description: `New user registered: ${email}`,
+      userId: req.body.userId,
+    });
     res.status(201).json(userResponse);
   } catch (error: any) {
     if (error.message === 'Email already exists' || error.message === 'Username already exists') {
+      await logAction(req, {
+        action: "REGISTER_ATTEMPT_FAILED",
+        module: "AUTH",
+        severity: "warning",
+        description: error,
+        userId: req.body.userId,
+      });
       return res.status(400).json({ error: error.message });
     }
-    console.error('Registration error:', error);
+    await logAction(req, {
+      action: "REGISTER_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: error,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -245,13 +339,26 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
       { expiresIn: '14d' } // 14 days
     );
 
-    console.log('✅ Token refreshed successfully for user:', user.email);
+    await logAction(req, {
+      action: "ACCESS_TOKEN_REFRESH_SUCCESS",
+      module: "AUTH",
+      severity: "info",
+      description: 'Token refreshed successfully for user:'+ user.email,
+      userId: req.body.userId,
+    });
     res.status(200).json({
       accessToken: newAccessToken,
       refreshToken: newRefreshToken
     });
   } catch (error: any) {
     console.error('Token refresh error:', error);
+    await logAction(req, {
+      action: "ACCESS_TOKEN_REFRESH_FAILED",
+      module: "AUTH",
+      severity: "error",
+      description: error,
+      userId: req.body.userId,
+    });
     res.status(500).json({ error: 'Failed to refresh token' });
   }
 };

@@ -32,6 +32,8 @@ import amenitiesRouter from './routes/amenities';
 import safetyRouter from './routes/safety';
 import routesRouter from './routes/routes';
 import alertRouter from './routes/alert';
+import announcementRouter from './routes/announcement';
+import systemHealthRouter from './routes/systemHealth';
 
 // Routes
 app.use('/api/auth', authRouter);
@@ -41,6 +43,8 @@ app.use('/api/amenities', amenitiesRouter);
 app.use('/api/safety', safetyRouter);
 app.use('/api/routes', routesRouter);
 app.use('/api/alerts', alertRouter);
+app.use('/api/announcements', announcementRouter);
+app.use('/api/system-health', systemHealthRouter);
 
 app.get('/', (_req, res) => {
   res.send('TaraG Backend is Running');

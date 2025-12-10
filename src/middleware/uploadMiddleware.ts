@@ -8,6 +8,7 @@ import { Request, Response, NextFunction } from "express";
 // Temporary upload folder
 const tempPath = "uploads/temp";
 const profileImagesPath = "uploads/profileImages";
+const announcementsPath = "uploads/announcements";
 
 if (!fs.existsSync(tempPath)) {
   fs.mkdirSync(tempPath, { recursive: true });
@@ -15,6 +16,10 @@ if (!fs.existsSync(tempPath)) {
 
 if (!fs.existsSync(profileImagesPath)) {
   fs.mkdirSync(profileImagesPath, { recursive: true });
+}
+
+if (!fs.existsSync(announcementsPath)) {
+  fs.mkdirSync(announcementsPath, { recursive: true });
 }
 
 const storage = multer.diskStorage({
@@ -121,6 +126,84 @@ export const processProfileImage = async (
     next();
   } catch (error) {
     console.error('Profile image processing failed:', error);
+    if (req.file) {
+      try {
+        fs.unlinkSync(req.file.path);
+      } catch (e) {
+        // Ignore cleanup errors
+      }
+    }
+    res.status(500).json({ message: 'Failed to process image' });
+  }
+};
+
+// Middleware to process and save announcement images
+export const processAnnouncementImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Image is optional for updates (if not changing image)
+    if (!req.file) {
+      return next();
+    }
+
+    const file = req.file;
+
+    // Generate filename: timestamp_announcement
+    const timestamp = Date.now();
+    
+    // Check if image has transparency by analyzing metadata
+    const metadata = await sharp(file.path).metadata();
+    const hasAlpha = metadata.hasAlpha || file.mimetype === 'image/png' || file.mimetype === 'image/webp' || file.mimetype === 'image/gif';
+    
+    // Use PNG for images with transparency, WEBP otherwise (better compression)
+    const format = hasAlpha ? 'png' : 'webp';
+    const filename = `${timestamp}_announcement.${format}`;
+    const optimizedPath = path.join(announcementsPath, filename);
+
+    // Get image dimensions for 2:3 ratio calculation
+    const width = metadata.width || 600;
+    const height = metadata.height || 900;
+    const targetWidth = 600;
+    const targetHeight = 900;
+
+    // Process image: fit to 2:3 ratio while preserving transparency
+    let pipeline = sharp(file.path);
+
+    if (hasAlpha) {
+      // For transparent images, use 'contain' to preserve transparency
+      // and add transparent padding instead of filling
+      pipeline = pipeline
+        .resize(targetWidth, targetHeight, {
+          fit: 'contain',
+          position: 'center',
+          background: { r: 0, g: 0, b: 0, alpha: 0 } // Transparent background
+        })
+        .png({ compressionLevel: 9 });
+    } else {
+      // For opaque images, use 'cover' for better composition
+      pipeline = pipeline
+        .resize(targetWidth, targetHeight, {
+          fit: 'cover',
+          position: 'center'
+        })
+        .webp({ quality: 80 });
+    }
+
+    await pipeline.toFile(optimizedPath);
+
+    // Delete temporary file
+    fs.unlinkSync(file.path);
+
+    // Store the relative path in req for controller to use
+    (req as any).processedImagePath = `/uploads/announcements/${filename}`;
+    
+    console.log(`✅ Announcement image processed: ${filename} (format: ${format}, hasAlpha: ${hasAlpha})`);
+    next();
+  } catch (error) {
+    console.error('❌ Announcement image processing failed:', error);
     if (req.file) {
       try {
         fs.unlinkSync(req.file.path);

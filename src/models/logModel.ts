@@ -19,7 +19,7 @@ export interface ILog extends Document {
   platform?: string;
   device?: IDevice;
   severity?: LogSeverity;
-  metadata?: Record<string, any>;
+  metadataID?: string;
   createdOn: Date;
 }
 
@@ -38,7 +38,7 @@ const LogSchema = new Schema<ILog>({
     appVersion: { type: String },
   },
   severity: { type: String, enum: ["info", "warning", "error"], default: "info" },
-  metadata: { type: Schema.Types.Mixed },
+  metadataID: { type: String, required: false},
   createdOn: { type: Date, default: () => new Date() },
 });
 
