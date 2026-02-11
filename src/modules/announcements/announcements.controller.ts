@@ -8,7 +8,7 @@ import {
   deleteAnnouncementService,
   getAllAnnouncementsService,
   getAnnouncementByIdService,
-} from '../services/announcementService';
+} from './announcements.service';
 
 interface AuthRequest extends Request {
   user?: any;

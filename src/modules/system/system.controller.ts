@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { runHealthChecks, HealthCheckResult } from '../services/systemHealthService';
+import { runHealthChecks, HealthCheckResult } from './health.service';
 
 // Helper to calculate overall health percent
 function calculateHealthPercent(results: HealthCheckResult[]): number {
@@ -20,10 +20,10 @@ export async function systemHealthSSE(req: Request, res: Response) {
 
   const results: HealthCheckResult[] = [];
   const tests = [
-    () => require('../services/systemHealthService').checkBackend(),
-    () => require('../services/systemHealthService').checkMongoDB(),
-    () => require('../services/systemHealthService').checkStorage(),
-    () => require('../services/systemHealthService').checkVersion(),
+    () => require('./health.service').checkBackend(),
+    () => require('./health.service').checkMongoDB(),
+    () => require('./health.service').checkStorage(),
+    () => require('./health.service').checkVersion(),
   ];
 
   for (const test of tests) {

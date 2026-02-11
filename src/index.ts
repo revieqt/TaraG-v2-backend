@@ -32,8 +32,8 @@ import amenitiesRouter from './routes/amenities';
 import safetyRouter from './routes/safety';
 import routesRouter from './routes/routes';
 import alertRouter from './routes/alert';
-import announcementRouter from './routes/announcement';
-import systemHealthRouter from './routes/systemHealth';
+import announcementRouter from './modules/announcements/announcements.route';
+import systemRouter from './modules/system/system.routes';
 
 // Routes
 app.use('/api/auth', authRouter);
@@ -44,21 +44,11 @@ app.use('/api/safety', safetyRouter);
 app.use('/api/routes', routesRouter);
 app.use('/api/alerts', alertRouter);
 app.use('/api/announcements', announcementRouter);
-app.use('/api/system-health', systemHealthRouter);
+app.use('/api/system-health', systemRouter);
 
 app.get('/', (_req, res) => {
   res.send('TaraG Backend is Running');
 });
-
-// Health check endpoint
-app.get('/health', (_req, res) => {
-  res.json({ 
-    status: 'ok', 
-    timestamp: new Date().toISOString(),
-    message: 'TaraG Backend is healthy'
-  });
-});
-
 
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);

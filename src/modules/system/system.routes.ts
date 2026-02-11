@@ -1,6 +1,6 @@
 import express from 'express';
-import { systemHealthSSE } from '../controllers/systemHealthController';
-import { authMiddleware } from '../middleware/authMiddleware';
+import { systemHealthSSE } from './system.controller';
+import { authMiddleware } from '../../middleware/authMiddleware';
 
 const router = express.Router();
 

@@ -5,9 +5,9 @@ import {
   updateAnnouncement,
   deleteAnnouncement,
   getAllAnnouncements,
-} from '../controllers/announcementController';
-import { authMiddleware } from '../middleware/authMiddleware';
-import { upload, processAnnouncementImage } from '../middleware/uploadMiddleware';
+} from './announcements.controller';
+import { authMiddleware } from '../../middleware/authMiddleware';
+import { upload, processAnnouncementImage } from '../../middleware/uploadMiddleware';
 
 const router = express.Router();
 
