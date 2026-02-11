@@ -5,7 +5,7 @@ import {
   updateAnnouncement,
   deleteAnnouncement,
   getAllAnnouncements,
-} from './announcements.controller';
+} from './announcement.controller';
 import { authMiddleware } from '../../middleware/authMiddleware';
 import { upload, processAnnouncementImage } from '../../middleware/uploadMiddleware';
 

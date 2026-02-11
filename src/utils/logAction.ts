@@ -1,6 +1,6 @@
 // utils/logAction.ts
 import { Request } from "express";
-import { LogModel } from "../models/logModel";
+import { LogModel } from "../modules/system/logs.model";
 import { parseUserAgent } from "./parseUserAgent";
 
 interface LogParams {

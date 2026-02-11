@@ -1,4 +1,4 @@
-import { AnnouncementModel, IAnnouncement } from './announcements.model';
+import { AnnouncementModel, IAnnouncement } from './announcement.model';
 
 /**
  * Get today's announcements

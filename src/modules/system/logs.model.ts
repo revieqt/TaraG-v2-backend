@@ -6,7 +6,7 @@ export interface IDevice {
   brand?: string;
   model?: string;
   os?: string;
-  type?: string; // mobile / tablet / desktop
+  type?: string;
   appVersion?: string;
 }
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import {
   getRoutes,
-} from '../services/routeService';
+} from './route.service';
 
 export const getRoutesHandler = async (req: Request, res: Response) => {
   try {

@@ -6,7 +6,7 @@ import {
   deleteAlertService,
   getAllAlertsService,
   getNumberOfAlertsTodayService,
-} from '../services/alertService';
+} from './alert.service';
 
 interface AuthRequest extends Request {
   user?: any;

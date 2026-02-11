@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { updateBooleanFieldService, updateStringFieldService, updateProfileImageWithCleanup, updateUserLikesService } from '../services/userService';
+import { updateBooleanFieldService, updateStringFieldService, updateProfileImageWithCleanup, updateUserLikesService } from './user.service';
 
 interface AuthRequest extends Request {
   user?: any;

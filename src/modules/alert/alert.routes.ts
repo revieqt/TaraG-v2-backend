@@ -6,8 +6,8 @@ import {
   deleteAlert,
   getAllAlerts,
   getNumberOfAlertsToday,
-} from '../controllers/alertController';
-import { authMiddleware } from '../middleware/authMiddleware';
+} from './alert.controller';
+import { authMiddleware } from '../../middleware/authMiddleware';
 
 const router = express.Router();
 

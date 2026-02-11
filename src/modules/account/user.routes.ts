@@ -1,7 +1,7 @@
 import express from 'express';
-import { updateBooleanUserData, updateStringUserData, uploadProfileImage, updateUserLikes } from '../controllers/userController';
-import { authMiddleware } from '../middleware/authMiddleware';
-import { upload, processProfileImage } from '../middleware/uploadMiddleware';
+import { updateBooleanUserData, updateStringUserData, uploadProfileImage, updateUserLikes } from './user.controller';
+import { authMiddleware } from '../../middleware/authMiddleware';
+import { upload, processProfileImage } from '../../middleware/uploadMiddleware';
 
 const router = express.Router();
 

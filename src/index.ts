@@ -24,17 +24,15 @@ mongoose
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Import routes
-import authRouter from './modules/auth/auth.routes';
+import authRouter from './modules/account/auth.routes';
 import weatherRouter from './modules/weather/weather.routes';
-import userRouter from './routes/user';
+import userRouter from './modules/account/user.routes';
 import safetyRouter from './modules/safety/safety.routes';
-import routesRouter from './routes/routes';
-import alertRouter from './routes/alert';
-import announcementRouter from './modules/announcements/announcements.route';
+import routesRouter from './modules/route/route.routes';
+import alertRouter from './modules/alert/alert.routes';
+import announcementRouter from './modules/announcement/announcement.route';
 import systemRouter from './modules/system/system.routes';
 
-// Routes
 app.use('/api/auth', authRouter);
 app.use('/api/weather', weatherRouter);
 app.use('/api/users', userRouter);
@@ -42,7 +40,7 @@ app.use('/api/safety', safetyRouter);
 app.use('/api/routes', routesRouter);
 app.use('/api/alerts', alertRouter);
 app.use('/api/announcements', announcementRouter);
-app.use('/api/system-health', systemRouter);
+app.use('/api/system', systemRouter);
 
 app.get('/', (_req, res) => {
   res.send('TaraG Backend is Running');

@@ -1,4 +1,4 @@
-import { AlertModel, IAlert } from '../models/alertModel';
+import { AlertModel, IAlert } from './alert.model';
 
 /**
  * Create a new alert
