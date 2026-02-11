@@ -1,23 +1,10 @@
 import { Request, Response } from 'express';
-import { enableSOS, disableSOS } from '../services/safetyService';
+import { enableSOS, disableSOS, findNearestAmenity } from './safety.service';
 
 interface AuthRequest extends Request {
   user?: any;
 }
 
-/**
- * Enable SOS/Emergency mode
- * POST /api/safety/enable-sos
- * Body: {
- *   accessToken: string
- *   emergencyType: string
- *   message?: string
- *   userID: string
- *   emergencyContact?: string
- *   latitude: number
- *   longitude: number
- * }
- */
 export const enableSOSController = async (req: AuthRequest, res: Response) => {
   try {
     console.log('🚨 enableSOSController - req.user:', req.user);
@@ -58,14 +45,6 @@ export const enableSOSController = async (req: AuthRequest, res: Response) => {
   }
 };
 
-/**
- * Disable SOS/Emergency mode
- * POST /api/safety/disable-sos
- * Body: {
- *   accessToken: string
- *   userID: string
- * }
- */
 export const disableSOSController = async (req: AuthRequest, res: Response) => {
   try {
     console.log('✅ disableSOSController - req.user:', req.user);
@@ -90,5 +69,24 @@ export const disableSOSController = async (req: AuthRequest, res: Response) => {
     console.error('❌ Error in disableSOSController:', error);
     const errorMessage = error instanceof Error ? error.message : 'Failed to deactivate SOS';
     return res.status(500).json({ message: errorMessage });
+  }
+};
+
+export const getNearestAmenity = async (req: Request, res: Response) => {
+  try {
+    const { amenity, latitude, longitude, tourism, aeroway } = req.body;
+    
+    if (!latitude || !longitude) {
+      return res.status(400).json({ error: 'latitude and longitude are required.' });
+    }
+    
+    if (!amenity && !tourism && !aeroway) {
+      return res.status(400).json({ error: 'At least one of amenity, tourism, or aeroway must be provided.' });
+    }
+    
+    const results = await findNearestAmenity(amenity, latitude, longitude, tourism, aeroway);
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch amenities.' });
   }
 };

@@ -28,8 +28,7 @@ mongoose
 import authRouter from './modules/auth/auth.routes';
 import weatherRouter from './modules/weather/weather.routes';
 import userRouter from './routes/user';
-import amenitiesRouter from './routes/amenities';
-import safetyRouter from './routes/safety';
+import safetyRouter from './modules/safety/safety.routes';
 import routesRouter from './routes/routes';
 import alertRouter from './routes/alert';
 import announcementRouter from './modules/announcements/announcements.route';
@@ -39,7 +38,6 @@ import systemRouter from './modules/system/system.routes';
 app.use('/api/auth', authRouter);
 app.use('/api/weather', weatherRouter);
 app.use('/api/users', userRouter);
-app.use('/api/amenities', amenitiesRouter);
 app.use('/api/safety', safetyRouter);
 app.use('/api/routes', routesRouter);
 app.use('/api/alerts', alertRouter);
