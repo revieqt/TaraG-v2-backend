@@ -25,7 +25,7 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Import routes
-import authRouter from './routes/auth';
+import authRouter from './modules/auth/auth.routes';
 import weatherRouter from './routes/weather';
 import userRouter from './routes/user';
 import amenitiesRouter from './routes/amenities';

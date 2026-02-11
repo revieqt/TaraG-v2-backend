@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { logAction } from '../utils/logAction';
-import { registerUser, loginUser, sendVerificationCode, verifyUserEmail, resetPassword, updatePassword } from '../services/authService';
+import { logAction } from '../../utils/logAction';
+import { registerUser, loginUser, sendVerificationCode, verifyUserEmail, resetPassword, updatePassword } from './auth.service';
 
 interface AuthRequest extends Request {
   user?: {

@@ -7,8 +7,8 @@ import {
   passwordReset,
   changePassword,
   refreshAccessToken
-} from '../controllers/authController';
-import { authMiddleware } from '../middleware/authMiddleware';
+} from './auth.controller';
+import { authMiddleware } from '../../middleware/authMiddleware';
 
 const router = express.Router();
 
