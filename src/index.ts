@@ -26,7 +26,7 @@ mongoose
 
 // Import routes
 import authRouter from './modules/auth/auth.routes';
-import weatherRouter from './routes/weather';
+import weatherRouter from './modules/weather/weather.routes';
 import userRouter from './routes/user';
 import amenitiesRouter from './routes/amenities';
 import safetyRouter from './routes/safety';
