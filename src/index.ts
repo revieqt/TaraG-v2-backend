@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use('/api/public', express.static(path.join(__dirname, "../public")));
 app.use('/uploads', express.static(path.join(__dirname, "../uploads")));
+app.set("trust proxy", 1);
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/tarag";
 mongoose
@@ -30,8 +31,9 @@ import userRouter from './modules/account/user.routes';
 import safetyRouter from './modules/safety/safety.routes';
 import routesRouter from './modules/route/route.routes';
 import alertRouter from './modules/alert/alert.routes';
-import announcementRouter from './modules/announcement/announcement.route';
+import announcementRouter from './modules/announcement/announcement.routes';
 import systemRouter from './modules/system/system.routes';
+import itineraryRouter from './modules/itinerary/itinerary.routes';
 
 app.use('/api/auth', authRouter);
 app.use('/api/weather', weatherRouter);
@@ -41,6 +43,8 @@ app.use('/api/routes', routesRouter);
 app.use('/api/alerts', alertRouter);
 app.use('/api/announcements', announcementRouter);
 app.use('/api/system', systemRouter);
+app.use('/api/itineraries', itineraryRouter);
+
 
 app.get('/', (_req, res) => {
   res.send('TaraG Backend is Running');

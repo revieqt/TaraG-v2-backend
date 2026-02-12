@@ -1,6 +1,6 @@
 import NodeCache from 'node-cache';
 import fetch from 'node-fetch';
-import { WeatherData } from './weather.types';
+import { WeatherData, OpenMeteoDailyResponse } from './weather.types';
 
 const weatherCache = new NodeCache({ stdTTL: 60 * 60 * 6 });
 
@@ -34,21 +34,6 @@ const weatherCodeMap: Record<number, string> = {
   96: 'Thunderstorm with slight hail',
   99: 'Thunderstorm with heavy hail',
 };
-
-interface OpenMeteoDailyResponse {
-  daily: {
-    time: string[];
-    temperature_2m_max: number[];
-    temperature_2m_min: number[];
-    windspeed_10m_max: number[];
-    precipitation_sum: number[];
-    weathercode: number[];
-  };
-  hourly: {
-    time: string[];
-    relativehumidity_2m: number[];
-  };
-}
 
 export async function getWeather(
   city: string,
