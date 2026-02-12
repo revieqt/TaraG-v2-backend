@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import User, { IUser } from '../account/user.model';
+import User, { IUser } from '../account/account.model';
 import axios from 'axios';
 import { EnableSOSRequest, DisableSOSRequest, LocationInfo, Amenity } from './safety.types';
 

@@ -1,4 +1,4 @@
-import User from './user.model';
+import User from './account.model';
 import fs from 'fs';
 import path from 'path';
 
