@@ -1,88 +1,36 @@
-// src/middleware/rateLimitMiddleware.ts
+import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 
-import rateLimit, { RateLimitRequestHandler } from "express-rate-limit";
-import { Request } from "express";
+type Sensitivity = 'low' | 'moderate' | 'high';
 
-/**
- * Extracts real client IP address safely.
- */
-const getClientIp = (req: Request): string => {
-  const forwarded = req.headers["x-forwarded-for"];
-
-  if (typeof forwarded === "string") {
-    return forwarded.split(",")[0].trim();
-  }
-
-  if (Array.isArray(forwarded)) {
-    return forwarded[0];
-  }
-
-  return req.ip || "unknown";
+const sensitivityConfig: Record<Sensitivity, { windowMs: number; max: number }> = {
+  low: {
+    windowMs: 60 * 1000, // 1 minute
+    max: 20,
+  },
+  moderate: {
+    windowMs: 60 * 1000, // 1 minute
+    max: 10,
+  },
+  high: {
+    windowMs: 60 * 1000, // 1 minute
+    max: 3,
+  },
 };
 
-/**
- * Factory function to create rate limiters.
- * Allows different limits per route.
- */
-export const createRateLimiter = (
-  windowMs: number,
-  maxRequests: number,
-  message?: string
-): RateLimitRequestHandler => {
+export const rateLimitMiddleware = (sensitivity: Sensitivity): RateLimitRequestHandler => {
+  const config = sensitivityConfig[sensitivity];
+
   return rateLimit({
-    windowMs,
-    max: maxRequests,
-
-    keyGenerator: (req: Request) => {
-      return getClientIp(req);
-    },
-
+    windowMs: config.windowMs,
+    max: config.max,
     standardHeaders: true,
     legacyHeaders: false,
-
-    handler: (req, res) => {
-      return res.status(429).json({
-        success: false,
-        error: "Too Many Requests",
-        message:
-          message ||
-          "You have exceeded the allowed number of requests. Please try again later.",
-        ip: getClientIp(req),
-      });
+    message: {
+      status: 429,
+      message: 'Too many requests from this IP, please try again later.',
+    },
+    keyGenerator: (req) => {
+      return req.ip || 'undefined';
     },
   });
 };
-
-/**
- * Predefined limiters for common TaraG use cases
- */
-
-export const loginLimiter = createRateLimiter(
-  60 * 1000, // 1 minute
-  5,
-  "Too many login attempts. Please wait 1 minute."
-);
-
-export const registerLimiter = createRateLimiter(
-  60 * 1000,
-  3,
-  "Too many registration attempts. Please wait 1 minute."
-);
-
-export const aiSuggestionLimiter = createRateLimiter(
-  60 * 1000,
-  10,
-  "Too many itinerary suggestions. Please wait before requesting again."
-);
-
-export const paymentLimiter = createRateLimiter(
-  60 * 1000,
-  5,
-  "Too many payment requests. Please slow down."
-);
-
-export const emergencyLimiter = createRateLimiter(
-  60 * 1000,
-  3,
-  "Emergency feature temporarily locked due to repeated usage."
-);

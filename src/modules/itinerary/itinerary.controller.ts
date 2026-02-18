@@ -183,11 +183,10 @@ export const deleteItinerary = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ message: 'Itinerary ID is required' });
     }
 
-    const deletedItinerary = await deleteItineraryService(itineraryID);
+    await deleteItineraryService(itineraryID);
 
     res.status(200).json({
       message: 'Itinerary deleted successfully',
-      data: deletedItinerary,
     });
   } catch (error) {
     console.error('❌ Error deleting itinerary:', error);
@@ -198,6 +197,7 @@ export const deleteItinerary = async (req: AuthRequest, res: Response) => {
       message: 'Internal server error',
       error: error instanceof Error ? error.message : 'Unknown error',
     });
+
   }
 };
 

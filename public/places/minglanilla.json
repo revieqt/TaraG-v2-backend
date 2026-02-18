@@ -1,0 +1,45 @@
+{
+  "city": "Minglanilla",
+  "zip": 6046,
+  "province": "Cebu",
+  "region": 7,
+  "country": "Philippines",
+  "latitude": 10.2454,
+  "longitude": 123.7960,
+  "climate": "Tropical",
+  "population": 153990,
+  "landArea": 95.8,
+  "elevation": 10,
+  "timeZone": "UTC+8",
+  "description": "Minglanilla is a municipality located in the province of Cebu, Philippines. It is known for its rich history, vibrant culture, and beautiful landscapes. The town is home to various attractions such as the St. John the Baptist Parish Church, the Minglanilla Public Market, and the scenic mountain ranges that surround it. With a population of approximately 153,990 people and a land area of 95.8 square kilometers, Minglanilla offers a blend of urban amenities and natural beauty, making it a popular destination for both locals and tourists alike.",
+  "updatedOn": "2025-08-26",
+  "points_of_interest": [
+    {
+      "locationName": "Anjo World Theme Park",
+      "address": "Calajoan",
+      "latitude": 10.249147040112021,
+      "longitude": 123.79985532236357,
+      "category": "entertainment",
+      "type": "amusement_park",
+      "imageUrl": "https://cdn.helixpay.ph/images/products/17179/c11a9180_9019_461a_8ec9_538746c0c31d.webp",
+      "description": "Anjo World Theme Park is a popular recreational destination in Minglanilla, Cebu.",
+      "links": [
+        {
+          "name": "Official Website",
+          "url": "https://www.anjoworld.com/"
+        }
+      ]
+    },
+    {
+      "locationName": "Gullas Heights",
+      "address": "Cadulawan",
+      "latitude": 10.257548095753611,
+      "longitude": 123.77599825442728,
+      "category": "nature",
+      "type": "viewpoint",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdHvXORjQnyqZHwBAqgZJ9nL9wXKiLsdPZKQ&s",
+      "description": "Gullas Heights is a popular scenic highland destination in Minglanilla, Cebu, known for its 360-degree panoramic views of the cityscape and mountains.",
+      "links": []
+    }
+  ]
+}
