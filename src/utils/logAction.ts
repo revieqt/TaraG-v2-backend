@@ -3,6 +3,15 @@ import { Request } from "express";
 import { LogModel } from "../modules/system/logs.model";
 import { parseUserAgent } from "./parseUserAgent";
 
+interface DeviceInfo {
+  deviceId?: string;
+  brand?: string;
+  model?: string;
+  os?: string;
+  type?: string;
+  appVersion?: string;
+}
+
 interface LogParams {
   action: string;
   module: string;
@@ -10,11 +19,29 @@ interface LogParams {
   severity?: "info" | "warning" | "error";
   metadataID?: string;
   userId?: string;
+  device?: DeviceInfo;
 }
 
 export const logAction = async (req: Request, params: LogParams) => {
   try {
     const ua = parseUserAgent(req.headers["user-agent"]);
+
+    // Use device from params if provided, otherwise fall back to parsed user agent
+    const deviceInfo: DeviceInfo = params.device ? {
+      deviceId: params.device.deviceId || "",
+      brand: params.device.brand || ua.browser,
+      model: params.device.model || "",
+      os: params.device.os || ua.os,
+      type: params.device.type || ua.platform.toLowerCase(),
+      appVersion: params.device.appVersion || "",
+    } : {
+      deviceId: "",
+      brand: ua.browser,
+      model: "",
+      os: ua.os,
+      type: ua.platform.toLowerCase(),
+      appVersion: "",
+    };
 
     await LogModel.create({
       action: params.action,
@@ -29,13 +56,7 @@ export const logAction = async (req: Request, params: LogParams) => {
       ip: req.ip || req.headers["x-forwarded-for"] || "",
       platform: ua.platform,
 
-      device: {
-        brand: ua.browser,      // Browser behaves like "brand"
-        model: "",              // Schema requires field, so placeholder
-        os: ua.os,
-        type: ua.platform.toLowerCase(),
-        appVersion: "",         // Placeholder (can remove if not needed)
-      },
+      device: deviceInfo,
 
       createdOn: new Date(),
     });

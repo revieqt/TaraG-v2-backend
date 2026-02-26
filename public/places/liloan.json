@@ -1,0 +1,153 @@
+{
+  "city": "Liloan",
+  "zip": 6002,
+  "province": "Cebu",
+  "region": 7,
+  "country": "Philippines",
+  "latitude": 10.3993,
+  "longitude": 124.0000,
+  "climate": "Tropical",
+  "population": 158387,
+  "landArea": 52.1,
+  "elevation": 17,
+  "timeZone": "UTC+8",
+  "description": "Liloan is a municipality in the province of Cebu, Philippines, located along the northeastern coast of Cebu Island and known for its vibrant coastal communities and rich cultural heritage. The town features attractions such as the historic San Fernando Rey Parish Church, the scenic Bagacay Point Lighthouse, popular seaside resorts like Papa Kit’s Marina, and local delicacies including the famous rosquillos. With a population of around 140,000 people and a land area of approximately 44 square kilometers, Liloan offers a blend of coastal charm, thriving local commerce, and growing tourism, making it a notable destination in northern Cebu.",
+  "updatedOn": "2025-08-26",
+  "points_of_interest": [
+    {
+      "locationName": "Papa Kit's Marina and Fishing Lagoon",
+      "address": "Poblacion",
+      "latitude": 10.394583336972232,
+      "longitude": 123.9966037599702,
+      "category": "nature",
+      "type": "lake",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrbmKM6JS1o4fKWEQpJf3PxxOMRNAsQyo39g&s",
+      "description": "Papa Kit's Marina and Fishing Lagoon is a fun, water-focused recreational park in Barangay Punta, Liloan, Cebu. It features a man-made fishing lagoon, water sports facilities, open picnic areas, swimming pools, ziplines, and cottages—perfect for family outings, adventure activities, team-building events, and relaxing day trips near the coast.",
+      "links": [
+        {
+          "name": "Website",
+          "url": "https://www.facebook.com/PapakitsFishingLagoon/"
+        },
+        { 
+          "name": "Phone",
+          "url": "09327735294"
+        },
+        {
+          "name": "Email",
+          "url": "marketing.menca@gmail.com"
+        }
+      ]
+    },
+    {
+      "locationName": "Bagacay Point Lighthouse",
+      "address": "Catarman",
+      "latitude": 10.383321136602476,
+      "longitude": 124.01851565997002,
+      "category": "culture",
+      "type": "historical_landmark",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRebqM9lSjN_mPZJjYS0DsFP7hc3EZl1A2_GQ&s",
+      "description": "Bagacay Point Lighthouse is a historic and scenic landmark located in Barangay Catarman, Liloan, Cebu. Perched atop a coastal cliff, it offers panoramic views of the sea and surrounding coastline. The lighthouse area features walking paths, observation points, and a serene atmosphere—perfect for sightseeing, photography, romantic strolls, and learning about the town’s maritime heritage.",
+      "links": []
+    },
+	  {
+      "locationName": "Bantayan sa Hari",
+      "address": "Calero",
+      "latitude": 10.383406489742455,
+      "longitude": 124.02113355997008,
+      "category": "culture",
+      "type": "historical_landmark",
+      "imageUrl": "https://liloan.gov.ph/images/Tourism/bantayan.jpg",
+      "description": "The Liloan Watchtower Ruins, locally known as Bantayan sa Hari, is a historical landmark in Barangay Calero, Liloan, Cebu, dating back to the Spanish colonial era. Built around 1857, the watchtower once served as a coastal defense structure against Moro raiders who frequently attacked seaside communities.",
+      "links": []
+    },
+	  {
+      "locationName": "Lataban Hills",
+      "address": "Lataban",
+      "latitude": 10.430678845171363,
+      "longitude": 123.97224588843501,
+      "category": "nature",
+      "type": "mountain",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo5pSePcqckYy74l4kAyaM666t4BWLryZPvg&s",
+      "description": "Lataban Hills is a scenic leisure spot and local attraction situated in Barangay Lataban, Liloan, Cebu. Known for its panoramic vistas of the rolling Lataban Hills, the site has earned comparisons to Bohol’s Chocolate Hills and serves as a tranquil destination for hikers, bikers, and nature lovers seeking fresh air and sweeping landscapes.",
+      "links": []
+    },
+	  {
+      "locationName": "Apollo's View",
+      "address": "Tayud",
+      "latitude": 10.36924763614113,
+      "longitude": 123.99919460229886,
+      "category": "nature",
+      "type": "viewpoint",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgwl1LhgTGpJe-m2DV6gxnjqPfz92NiNcHqQ&s",
+      "description": "Apollo’s View is a serene outdoor leisure spot and scenic overlook in Barangay Tayud Liloan, Cebu. Locally regarded as a hidden gem, it offers panoramic views of the sea, mountains, and city lights, making it a favored location for relaxation, picnics, and casual camping.",
+      "links": []
+    },
+	  {
+      "locationName": "San Fernando El Rey Parish Church",
+      "address": "Poblacion",
+      "latitude": 10.39930850013132,
+      "longitude": 124.00063805997011,
+      "category": "religious",
+      "type": "church",
+     "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPxwcly7JD1YY2MIV48exGwrfEFhQh9AGnLA&s",
+      "description": "San Fernando El Rey Parish Church is a historic, culture-rich church located in Liloan, Cebu. It features classic Spanish-era architecture, beautifully crafted interiors, and a peaceful courtyard for reflection. The church is an important center for community gatherings, religious ceremonies, cultural events, and quiet visits—perfect for history enthusiasts, spiritual retreats, and heritage appreciation in a serene town setting.",
+      "links": [
+	      {
+          "name": "Email",
+          "url": "sfrpliloan@gmail.com"
+        }
+      ]
+    },
+	  {
+      "locationName": "Malingin na Bato",
+      "address": "Mulao",
+      "latitude": 10.470620626257459,
+      "longitude": 123.95357850255904,
+      "category": "nature",
+      "type": "river",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaT_mN8uSeRxZz8WV1kuwlqX_105eQC2hapg&s",
+      "description": "Malingin na Bato is a unique natural rock formation located in Liloan, Cebu. It features intriguing stone formations, scenic surroundings, and peaceful open spaces ideal for exploration and photography.",
+      "links": []
+    },
+	  {
+      "locationName": "Liloan Beach Club",
+      "address": "Catarman",
+      "latitude": 10.449516849011879,
+      "longitude": 124.00708690120872,
+      "category": "accommodation",
+      "type": "resort",
+     "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQFH0iLTvItN7qTwsrqHCC8UQw1OcoZhso3A&s",
+      "description": "Liloan Beach Club is a locally operated beach resort situated in Tiwasan, Catarman, Purok Alugbati 4, Liloan, Cebu. Located along the coastal area near the Central Nautical Highway, the resort provides a family-oriented seaside retreat that combines natural scenery with casual recreation.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/liloanbeachclub/"
+        },
+	      { 
+          "name": "Phone",
+          "url": "09687036112"
+        }
+      ]
+    },
+    {
+      "locationName": "Pangeas Beach Resort",
+      "address": "Pagutlan Suso",
+      "latitude": 10.372115936235172,
+      "longitude": 124.0084420311344,
+      "category": "accommodation",
+      "type": "resort",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-y3QFgOGLd-BknmGYqNLz9vfnBe5g1rcMVw&s",
+      "description": "Pangeas Beach Resort is a hidden garden resort located in Liloan, Cebu, and is only an hour away from the city. Pangeas Beach Resort is ideal for family and friend vacations.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/PangeasResortOfficial/"
+        },
+	      { 
+          "name": "Phone",
+          "url": "09173221123"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "city": "Compostela",
+  "zip": 6003,
+  "province": "Cebu",
+  "region": 7,
+  "country": "Philippines",
+  "latitude": 10.4541,
+  "longitude": 124.0130,
+  "climate": "Tropical",
+  "population": 58178,
+  "landArea": 53.9,
+  "elevation": 35,
+  "timeZone": "UTC+8",
+  "description": "Compostela is a municipality located in the province of Cebu, Philippines, situated along the northeastern coast of Cebu Island and known for its rich agricultural lands and peaceful coastal communities. The town is home to attractions such as the historic St. James the Apostle Parish Church, scenic beaches along Compostela Bay, and productive farms that supply corn, rice, and fresh vegetables to nearby areas. With a population of approximately 55,000 people and a land area of about 53 square kilometers, Compostela offers a quiet provincial atmosphere while steadily developing into a growing residential and commercial hub in northern Cebu.",
+  "updatedOn": "2025-08-26",
+  "points_of_interest": [
+    {
+      "locationName": "Green Lagoon Park",
+      "address": "Guimbal",
+      "latitude": 10.46320673923344,
+      "longitude": 124.01661753107705,
+      "category": "accommodation",
+      "type": "resort",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRltUKmPt7kSW15rgSnJqhG1kr64JqErWlIOQ&s",
+      "description": "Green Lagoon Park, located in Compostela, Cebu, Philippines, is an enchanting retreat designed to offer both relaxation and adventure.",
+      "links": [
+        {
+          "name": "Website",
+          "url": "https://green-lagoon-park.com-place.com/"
+        },
+        { 
+          "name": "Phone",
+          "url": "09665766225"
+        }
+      ]
+    },
+    {
+      "locationName": "Q Park",
+      "address": "Buluang",
+      "latitude": 10.479196789650763,
+      "longitude": 124.00448219561214,
+      "category": "entertainment",
+      "type": "amusement_park",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA2W9S-HTcQwBRl6f_yRE7iECZWEogfL43Gg&s",
+      "description": "Q-Park is a sprawling 200-hectare, serene, and mountainous pilgrimage site located in Barangay Buluang, Compostela, Cebu.Developed by the Norkis Group of Companies, it features a 41-ft. Virgin Mary monument, life-sized Stations of the Cross, and a replica of Mama Mary’s house, making it a popular spot for reflection and nature trips.",
+      "links": [
+	      {
+          "name": "Email",
+          "url": "theqpark@gmail.com"
+        },
+	      { 
+          "name": "Telephone",
+          "url": "(032) 425 8355"
+        },
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/The.Q.Park/"
+        }
+
+      ]
+    },
+	  {
+      "locationName": "Paradise Hills Mountain Resort",
+      "address": "Buluang",
+      "latitude": 10.480375989952636,
+      "longitude": 123.99923753113582,
+      "category": "accommodation",
+      "type": "resort",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd_ywl3YHIvc0inuw1jjRipMdnFt0n-NtWfg&s",
+      "description": "Paradise Hills Mountain Resort is a relaxing, nature-focused day-use resort in Barangay Buluang, Compostela, Cebu. It features a heart-shaped main pool, kiddie slides, mountain views, and no corkage fee.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/paradisehillsandmountainresort/"
+        },
+	      { 
+          "name": "Phone",
+          "url": "09295650651"
+        }
+      ]
+    },
+	  {
+      "locationName": "Gatubod Spring Resort",
+      "address": "Basak",
+      "latitude": 10.48523873807028,
+      "longitude": 123.97247520414884,
+      "category": "accommodation",
+      "type": "resort",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdyKL-W6fbDj0dtmKATZO5pG4k2TO_FLPZQ&s",
+      "description": "Gatubod Spring Resort is a family-friendly, nature-inspired spring resort in Barangay Basak, Compostela, Cebu, It features cool natural spring pools, water slides, spacious cottages, and open picnic areas surrounded by lush greenery—perfect for day trips, group outings, and relaxing swims with no need to travel far from the city.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/Gatubod/"
+        }
+      ]
+    },
+	  {
+      "locationName": "Cascades Nature Park",
+      "address": "Magay",
+      "latitude": 10.470947939489509,
+      "longitude": 124.01547190230032,
+      "category": "nature",
+      "type": "park",
+      "imageUrl": "https://sugbo.ph/wp-content/uploads/2020/09/1-Cascades-Nature-Park-Compostela-Cebu.jpg",
+      "description": "Cascades Nature Park is a peaceful, nature-focused leisure park in Barangay Magay, Compostela, Cebu. It features landscaped gardens, open-air cottages, swimming pools, and spacious event grounds surrounded by lush greenery—perfect for family outings, team-building activities, special events, and relaxing day trips close to the city.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.cascadesnaturepark.com/"
+        },
+	      {
+          "name": "Email",
+          "url": "info@cascadesnaturepark.com"
+        }
+      ]
+    },
+	  {
+      "locationName": "Estaca Bay Resort",
+      "address": "Estaca",
+      "latitude": 10.436563689692274,
+      "longitude": 124.00974385997077,
+      "category": "accommodation",
+      "type": "resort",
+     "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/181923078.jpg?k=da3d7325e38c3f3f7b05ee2317dbc3a7b3e75c2080e2cea9bb176ab2ef732c8a&o=",
+      "description": "Estaca Bay Gardens Conference Resort is a relaxing beachfront resort in Barangay Estaca, Compostela, Cebu. It features well-maintained gardens, a swimming pool, private beach access, comfortable accommodations, and function halls for meetings and events—perfect for family getaways, company outings, conferences, and peaceful seaside retreats just a short drive from Cebu City.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/EstacaBayResort/"
+        },
+	      {
+          "name": "Email",
+          "url": "marketing.menca@gmail.com"
+        },
+	      { 
+          "name": "Phone",
+          "url": "09202810134"
+        }
+      ]
+    },
+	  {
+      "locationName": "Compostela Boardwalk Resort",
+      "address": "Poblacion",
+      "latitude": 10.455150538967198,
+      "longitude": 124.01338523113553,
+      "category": "accommodation",
+      "type": "resort",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScSTlC6p1moIHeheT8zr6A52sqEXZvYPNd7g&s",
+      "description": "Compostela Boardwalk Resort is a laid-back seaside destination in Barangay Poblacion, Compostela, Cebu. It features a scenic boardwalk, beachfront cottages, open lounging areas, and relaxing coastal views—perfect for casual family outings, barkada hangouts, sunset watching, and easy day trips near Cebu City.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/compostelabw/"
+        },
+	      { 
+          "name": "Phone",
+          "url": "09255007803"
+        }
+      ]
+    },
+	  {
+      "locationName": "Archdiocesan Shrine of Santiago Apostol De Compostela",
+      "address": "Poblacion",
+      "latitude": 10.449516849011879,
+      "longitude": 124.00708690120872,
+      "category": "religious",
+      "type": "church",
+      "imageUrl": "https://pbs.twimg.com/media/FYgl6DYVsAAZ4s9.jpg",
+      "description": "Archdiocesan Shrine of Santiago Apostol de Compostela is a historic, faith-centered church in Barangay Poblacion, Compostela, Cebu. It features classic Spanish-inspired architecture, a spacious parish hall, beautifully maintained grounds, and a vibrant community of parishioners—perfect for religious visits, cultural appreciation, local festivals, and quiet reflection just a short drive from Cebu City.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/SnrSantiagoDeCompostela/"
+        },
+	      { 
+          "name": "Telephone",
+          "url": "(032) 462 0977"
+        },
+	      {
+          "name": "Email",
+          "url": "seniorsantiagoapostol@gmail.com"
+        }
+      ]
+    },
+    {
+      "locationName": "Archdiocesan Shrine of Santiago Apostol De Compostela",
+      "address": "Poblacion",
+      "latitude": 10.449516849011879,
+      "longitude": 124.00708690120872,
+      "category": "religious",
+      "type": "church",
+      "imageUrl": "https://pbs.twimg.com/media/FYgl6DYVsAAZ4s9.jpg",
+      "description": "Archdiocesan Shrine of Santiago Apostol de Compostela is a historic, faith-centered church in Barangay Poblacion, Compostela, Cebu. It features classic Spanish-inspired architecture, a spacious parish hall, beautifully maintained grounds, and a vibrant community of parishioners—perfect for religious visits, cultural appreciation, local festivals, and quiet reflection just a short drive from Cebu City.",
+      "links": [
+	      {
+          "name": "website",
+          "url": "https://www.facebook.com/SnrSantiagoDeCompostela/"
+        },
+	      { 
+          "name": "Telephone",
+          "url": "(032) 462 0977"
+        },
+	      {
+          "name": "Email",
+          "url": "seniorsantiagoapostol@gmail.com"
+        }
+      ]
+    }
+  ]
+}

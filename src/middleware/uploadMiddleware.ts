@@ -214,3 +214,79 @@ export const processAnnouncementImage = async (
     res.status(500).json({ message: 'Failed to process image' });
   }
 };
+
+// Middleware to process and save location point images
+export const processLocationImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Image is optional for location points
+    if (!req.file) {
+      return next();
+    }
+
+    const file = req.file;
+
+    // Generate filename: timestamp_location
+    const timestamp = Date.now();
+    
+    // Check if image has transparency
+    const metadata = await sharp(file.path).metadata();
+    const hasAlpha = metadata.hasAlpha || file.mimetype === 'image/png' || file.mimetype === 'image/webp' || file.mimetype === 'image/gif';
+    
+    // Use PNG for images with transparency, WEBP otherwise
+    const format = hasAlpha ? 'png' : 'webp';
+    const filename = `${timestamp}_location.${format}`;
+    const locationsPath = 'uploads/locations';
+
+    if (!fs.existsSync(locationsPath)) {
+      fs.mkdirSync(locationsPath, { recursive: true });
+    }
+
+    const optimizedPath = path.join(locationsPath, filename);
+
+    // Process image: resize to 1080px width for standardization
+    let pipeline = sharp(file.path);
+
+    if (hasAlpha) {
+      // For transparent images, preserve transparency
+      pipeline = pipeline
+        .resize(1080, 800, {
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
+        .png({ compressionLevel: 9 });
+    } else {
+      // For opaque images, use WEBP for better compression
+      pipeline = pipeline
+        .resize(1080, 800, {
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
+        .webp({ quality: 80 });
+    }
+
+    await pipeline.toFile(optimizedPath);
+
+    // Delete temporary file
+    fs.unlinkSync(file.path);
+
+    // Store the relative path in req for controller to use
+    (req as any).processedImagePath = `/uploads/locations/${filename}`;
+    
+    console.log(`✅ Location image processed: ${filename} (format: ${format}, hasAlpha: ${hasAlpha})`);
+    next();
+  } catch (error) {
+    console.error('❌ Location image processing failed:', error);
+    if (req.file) {
+      try {
+        fs.unlinkSync(req.file.path);
+      } catch (e) {
+        // Ignore cleanup errors
+      }
+    }
+    res.status(500).json({ message: 'Failed to process image' });
+  }
+};

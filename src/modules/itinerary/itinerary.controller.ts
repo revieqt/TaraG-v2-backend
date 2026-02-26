@@ -9,6 +9,7 @@ import {
   viewUserItinerariesService,
 } from './itinerary.service';
 import { CreateItineraryRequest, UpdateItineraryRequest } from './itinerary.types';
+import User from '../account/account.model';
 
 interface AuthRequest extends Request {
   user?: any;
@@ -31,10 +32,33 @@ export const viewItinerary = async (req: AuthRequest, res: Response) => {
     }
 
     const itinerary = await viewItineraryService(itineraryID);
+    
+    // Check if itinerary exists
+    if (!itinerary) {
+      return res.status(404).json({ message: 'Itinerary not found' });
+    }
+    
+    // Resolve username from userID (optional)
+    let itineraryData: any = itinerary.toObject ? itinerary.toObject() : itinerary;
+    console.log('🟡 itinerary.userID:', itinerary.userID);
+    
+    try {
+      const user = await User.findById(itinerary.userID);
+      console.log('🟡 User found:', user ? 'Yes' : 'No');
+      if (user) {
+        console.log('🟡 User username:', user.username);
+        itineraryData.username = user.username;
+      }
+    } catch (userError) {
+      console.warn('⚠️ Could not fetch username for user:', itinerary.userID, userError);
+      // Continue without username - it's optional
+    }
+    
+    console.log('🟡 Final itineraryData with username:', itineraryData.username);
 
     res.status(200).json({
       message: 'Itinerary retrieved successfully',
-      data: itinerary,
+      data: itineraryData,
     });
   } catch (error) {
     console.error('❌ Error viewing itinerary:', error);

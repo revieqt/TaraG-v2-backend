@@ -13,7 +13,7 @@ interface AuthRequest extends Request {
 
 export const passwordReset = async (req: Request, res: Response) => {
   try {
-    const { userId, email, newPassword } = req.body;
+    const { userId, email, newPassword, device } = req.body;
     const identifier = userId || email;
 
     if (!identifier || !newPassword) {
@@ -32,6 +32,7 @@ export const passwordReset = async (req: Request, res: Response) => {
       severity: "info",
       description: `password reset success`,
       userId: userId,
+      device: device,
     });
     res.status(200).json({ message: 'Password reset successful' });
   } catch (error: any) {
@@ -41,6 +42,7 @@ export const passwordReset = async (req: Request, res: Response) => {
       severity: "error",
       description: `attempt to reset password failed`,
       userId: req.body.userId,
+      device: req.body.device,
     });
     res.status(500).json({ error: error.message || 'Failed to reset password' });
   }
@@ -48,7 +50,7 @@ export const passwordReset = async (req: Request, res: Response) => {
 
 export const changePassword = async (req: AuthRequest, res: Response) => {
   try {
-    const { oldPassword, newPassword, confirmPassword } = req.body;
+    const { oldPassword, newPassword, confirmPassword, device } = req.body;
     const userId = req.user?.id || req.user?.userId;
 
     if (!userId) {
@@ -70,6 +72,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
       severity: "info",
       description: `password update success`,
       userId: userId,
+      device: device,
     });
     await updatePassword(userId, oldPassword, newPassword, confirmPassword);
     
@@ -82,6 +85,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
         severity: "warning",
         description: `New passwords do not match`,
         userId: req.body.userId,
+        device: req.body.device,
       });
       return res.status(400).json({ error: 'New passwords do not match' });
     }
@@ -92,6 +96,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
         severity: "warning",
         description: `Current password is incorrect`,
         userId: req.body.userId,
+        device: req.body.device,
       });
       return res.status(401).json({ error: 'Current password is incorrect' });
     }
@@ -101,6 +106,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
       severity: "error",
       description: error,
       userId: req.body.userId,
+      device: req.body.device,
     });
     res.status(500).json({ error: error.message || 'Failed to update password' });
   }
@@ -108,7 +114,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { identifier, password } = req.body;
+    const { identifier, password, device } = req.body;
 
     if (!identifier || !password) {
       return res.status(400).json({ error: 'Email/username and password are required' });
@@ -121,6 +127,7 @@ export const login = async (req: Request, res: Response) => {
       severity: "info",
       description: `Login success`,
       userId: req.body.userId,
+      device: device,
     });
     res.status(200).json(result);
   } catch (error: any) {
@@ -131,6 +138,7 @@ export const login = async (req: Request, res: Response) => {
         severity: "warning",
         description: error,
         userId: req.body.userId,
+        device: req.body.device,
       });
       return res.status(401).json({ error: 'Invalid email/username or password' });
     }
@@ -140,6 +148,7 @@ export const login = async (req: Request, res: Response) => {
       severity: "error",
       description: error,
       userId: req.body.userId,
+      device: req.body.device,
     });
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -147,7 +156,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const sendEmailVerification = async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
+    const { email, device } = req.body;
 
     if (!email) {
       return res.status(400).json({ error: 'Email is required' });
@@ -160,6 +169,7 @@ export const sendEmailVerification = async (req: Request, res: Response) => {
       severity: "info",
       description: `verification code sent to ${email}`,
       userId: req.body.userId,
+      device: device,
     });
     res.status(200).json({ code });
   } catch (error: any) {
@@ -169,6 +179,7 @@ export const sendEmailVerification = async (req: Request, res: Response) => {
       severity: "error",
       description: error,
       userId: req.body.userId,
+      device: req.body.device,
     });
     res.status(500).json({ error: error.message || 'Failed to send verification code' });
   }
@@ -176,7 +187,7 @@ export const sendEmailVerification = async (req: Request, res: Response) => {
 
 export const verifyEmail = async (req: Request, res: Response) => {
   try {
-    const { email, code, sentCode } = req.body;
+    const { email, code, sentCode, device } = req.body;
 
     if (!email || !code || !sentCode) {
       return res.status(400).json({ error: 'Email, code, and sent code are required' });
@@ -189,6 +200,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
       severity: "info",
       description: email +' verified successfully',
       userId: req.body.userId,
+      device: device,
     });
     res.status(200).json({ message: 'Email verified successfully' });
   } catch (error: any) {
@@ -199,6 +211,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
         severity: "warning",
         description: error,
         userId: req.body.userId,
+        device: req.body.device,
       });
       return res.status(400).json({ error: 'Invalid verification code' });
     }
@@ -208,6 +221,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
       severity: "error",
       description: error,
       userId: req.body.userId,
+      device: req.body.device,
     });
     res.status(500).json({ error: error.message || 'Failed to verify email' });
   }
@@ -224,7 +238,8 @@ export const register = async (req: Request, res: Response) => {
       contactNumber,
       bdate,
       gender,
-      type
+      type,
+      device
     } = req.body;
 
     if (!fname || !username || !email || !password || !bdate || !gender || !type) {
@@ -273,6 +288,7 @@ export const register = async (req: Request, res: Response) => {
       severity: "info",
       description: `New user registered: ${email}`,
       userId: req.body.userId,
+      device: device,
     });
     res.status(201).json(userResponse);
   } catch (error: any) {
@@ -283,6 +299,7 @@ export const register = async (req: Request, res: Response) => {
         severity: "warning",
         description: error,
         userId: req.body.userId,
+        device: req.body.device,
       });
       return res.status(400).json({ error: error.message });
     }
@@ -292,6 +309,7 @@ export const register = async (req: Request, res: Response) => {
       severity: "error",
       description: error,
       userId: req.body.userId,
+      device: req.body.device,
     });
     res.status(500).json({ error: 'Internal server error' });
   }

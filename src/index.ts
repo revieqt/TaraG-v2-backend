@@ -34,6 +34,7 @@ import alertRouter from './modules/alert/alert.routes';
 import announcementRouter from './modules/announcement/announcement.routes';
 import systemRouter from './modules/system/system.routes';
 import itineraryRouter from './modules/itinerary/itinerary.routes';
+import placesRouter from './modules/places/places.routes';
 
 app.use('/api/auth', authRouter);
 app.use('/api/weather', weatherRouter);
@@ -44,6 +45,7 @@ app.use('/api/alerts', alertRouter);
 app.use('/api/announcements', announcementRouter);
 app.use('/api/system', systemRouter);
 app.use('/api/itineraries', itineraryRouter);
+app.use('/api/locations', placesRouter);
 
 
 app.get('/', (_req, res) => {

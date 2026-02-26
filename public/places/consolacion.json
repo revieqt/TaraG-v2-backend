@@ -1,0 +1,125 @@
+{
+  "city": "Consolacion",
+  "zip": 6001,
+  "province": "Cebu",
+  "region": 7,
+  "country": "Philippines",
+  "latitude": 10.3758,
+  "longitude": 123.9569,
+  "climate": "Tropical",
+  "population": 153931,
+  "landArea": 37.03,
+  "elevation": 26,
+  "timeZone": "UTC+8",
+  "description": "Consolacion is a municipality located in the province of Cebu, Philippines, situated along the northern coast of Cebu Island and known for its rapidly growing residential communities and accessible location near Cebu City. The town features attractions such as the scenic Snake Road and Purisima Mountain viewpoints, the historic St. Narciso Parish Church, and local farms and nature spots that offer tranquil escapes from urban life. With a population of approximately 150,000 people and a land area of about 30 square kilometers, Consolacion combines a suburban lifestyle with natural and cultural attractions, making it a developing residential and commercial hub in northern Cebu.",
+  "updatedOn": "2025-08-26",
+  "points_of_interest": [
+    {
+      "locationName": "Purisima Mountain VIEW",
+      "address": "Panoypoy",
+      "latitude": 10.425620037993006,
+      "longitude": 123.92900923113508,
+      "category": "nature",
+      "type": "viewpoint",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOZX_P1-NYmOXn7M6S1BBoIIIVybgWrN79-A&s",
+      "description": "Purisima Mountain VIEW is a scenic restaurant and leisure spot in Panas, Panoypoy, Consolacion, Cebu, Philippines. Known for its panoramic vistas of the city, mountains, and ocean, it blends casual Filipino dining with the refreshing atmosphere of Cebu’s uplands.",
+      "links": [
+        {
+          "name": "Website",
+          "url": "https://www.facebook.com/p/Purisima-Mountain-VIEW-100066518498550/"
+        },
+        { 
+          "name": "Phone",
+          "url": "09621141448"
+        },
+        {
+          "name": "Email",
+          "url": "purisimamountainview@gmail.com"
+        }
+      ]
+    },
+    {
+      "locationName": "Panas Falls",
+      "address": " Panas",
+      "latitude": 10.438262489690754,
+      "longitude": 123.9313957311354,
+      "category": "nature",
+      "type": "waterfall",
+      "imageUrl": "https://i.ytimg.com/vi/QZYmmpI-mE0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDkpb0CycktZCAs4SGXxnELitkXKQ",
+      "description": "Panas Falls is a natural attraction and local destination tucked in the upland village of Barangay Panas, within Lanipga, Consolacion, Cebu, Philippines. Known for its serene, untouched beauty, it is one of the town’s lesser-known getaways, offering visitors a quiet retreat amid lush greenery and cool, flowing waters. The falls’ accessibility and free entry make it a popular spot for locals seeking a peaceful break from the urban bustle",
+      "links": []
+    },
+	  {
+      "locationName": "Genesis Valley",
+      "address": "Cabangahan",
+      "latitude": 10.40136283719491,
+      "longitude": 123.93170073113488,
+      "category": "accommodation",
+      "type": "resort",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqy24YqJP5pYzPkcXKawMUXJmdxwH7JjfbZ2XvlJeojV7GqZEwixSoUD7hogcG9VCFY8VVcOj0SoimM7P41Bd1vXEkZJp36zNw8314QiNB4yMFJv2eg2GwRpgCvlObC-ufC2Vix=w426-h240-k-no",
+      "description": "Genesis Valley is a mountain resort and leisure destination situated in Consolacion, Cebu, Philippines. Nestled amid the green slopes of Barangay Cabangahan, it offers a mix of natural scenery and recreational facilities that attract day trippers and groups from Metro Cebu seeking outdoor relaxation.",
+      "links": [
+        {
+          "name": "Website",
+          "url": "https://www.facebook.com/p/Genesis-Valley-100064917722926/"
+        },
+        { 
+          "name": "Telephone",
+          "url": "(032) 384 7146"
+        },
+        {
+          "name": "Email",
+          "url": "genesis_valley@yahoo.com"
+        }
+      ]
+    },
+	  {
+      "locationName": "Shrine of The Divine Mercy de Cebu",
+      "address": "Garing",
+      "latitude": 10.426982789701349,
+      "longitude": 123.94179243113507,
+      "category": "religious",
+      "type": "shrine",
+      "imageUrl": "https://divinemercycebushrine.com/wp-content/uploads/2023/05/642ea8ae3f16b32daeab59af_3a-Aerial.jpg",
+      "description": "Shrine of the Divine Mercy de Cebu is a prominent Catholic pilgrimage site located in Barangay Garing, Consolacion, Cebu. It features a towering statue of the Divine Mercy, a chapel for prayer and reflection, landscaped gardens, and scenic hilltop views overlooking the northern Cebu coastline—making it a peaceful destination for spiritual retreats, family visits, religious pilgrimages, and quiet moments of devotion close to Cebu City.",
+       "links": [
+	      {
+          "name": "Website",
+          "url": "https://cebudivinemercyshrine.com/"
+        },
+        { 
+          "name": "Phone",
+          "url": "09235872525"
+        },
+        { 
+          "name": "Telephone",
+          "url": "(032) 346 5442"
+        },
+        {
+          "name": "Email",
+          "url": "divinemercy.archdiocese.cebu@gmail.com"
+        }
+      ]
+    },
+	  {
+      "locationName": "City Lights Camp & Dine",
+      "address": "Panoypoy",
+      "latitude": 10.428422789700043,
+      "longitude": 123.92937913113524,
+      "category": "nature",
+      "type": "viewpoint",
+      "imageUrl": "https://shellwanders.com/wp-content/uploads/2023/03/city-lights-camp-and-dine-consolacion-cebu.jpg",
+      "description": "City Lights Camp & Dine is a mountain-view dining and camping destination located in the upland area of Consolacion, Cebu. It features open-air dining spaces, cozy camping tents, viewing decks, and beautifully lit surroundings that overlook the sparkling city skyline at night—perfect for romantic dinners, barkada gatherings, overnight camping, and relaxing evening getaways.",
+      "links": [
+        {
+          "name": "Website",
+          "url": "https://www.facebook.com/p/City-Lights-Camp-and-Dine-100070181228865/"
+        },
+        { 
+          "name": "Phone",
+          "url": "09176209210"
+        }
+      ]
+    }
+  ]
+}

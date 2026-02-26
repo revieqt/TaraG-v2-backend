@@ -25,8 +25,20 @@
       "description": "Anjo World Theme Park is a popular recreational destination in Minglanilla, Cebu.",
       "links": [
         {
-          "name": "Official Website",
+          "name": "Website",
           "url": "https://www.anjoworld.com/"
+        },
+        {
+          "name": "Phone",
+          "url": "09086262852"
+        },
+        {
+          "name": "Telephone",
+          "url": "09086262852"
+        },
+        {
+          "name": "Email",
+          "url": "info@anjoworld.com"
         }
       ]
     },
