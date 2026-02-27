@@ -6,6 +6,7 @@ import {
   deleteItinerary,
   cancelItinerary,
   markItineraryAsDone,
+  repeatItinerary,
   viewUserItineraries,
 } from './itinerary.controller';
 import { authMiddleware } from '../../middleware/authMiddleware';
@@ -23,6 +24,9 @@ router.post('/create', authMiddleware, createItinerary);
 
 // Update an itinerary
 router.patch('/update/:itineraryID', authMiddleware, updateItinerary);
+
+// Repeat an itinerary (update with new dates and set status to 'active')
+router.patch('/repeat/:itineraryID', authMiddleware, repeatItinerary);
 
 // Delete an itinerary
 router.delete('/delete/:itineraryID', authMiddleware, deleteItinerary);

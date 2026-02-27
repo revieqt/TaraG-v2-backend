@@ -172,6 +172,42 @@ export const markItineraryAsDoneService = async (itineraryID: string): Promise<I
 };
 
 /**
+ * Repeat an itinerary (update with new dates and set status to 'active')
+ */
+export const repeatItineraryService = async (
+  itineraryID: string,
+  updateData: UpdateItineraryRequest
+): Promise<IItinerary> => {
+  try {
+    console.log('🟡 repeatItineraryService - Repeating itinerary:', itineraryID, 'Data:', updateData);
+
+    // Always set status to 'active' and update the updatedOn field
+    const dataWithTimestamp = {
+      ...updateData,
+      status: 'active' as ItineraryStatus,
+      updatedOn: new Date(),
+    };
+
+    const repeatedItinerary = await ItineraryModel.findByIdAndUpdate(
+      itineraryID,
+      dataWithTimestamp,
+      { new: true, runValidators: true }
+    );
+
+    if (!repeatedItinerary) {
+      console.log('❌ Itinerary not found:', itineraryID);
+      throw new Error('Itinerary not found');
+    }
+
+    console.log('✅ Itinerary repeated successfully:', repeatedItinerary);
+    return repeatedItinerary;
+  } catch (error) {
+    console.error('❌ Error repeating itinerary:', error);
+    throw error;
+  }
+};
+
+/**
  * View all itineraries for a specific user
  */
 export const viewUserItinerariesService = async (userID: string): Promise<IItinerary[]> => {

@@ -6,6 +6,7 @@ import {
   deleteItineraryService,
   cancelItineraryService,
   markItineraryAsDoneService,
+  repeatItineraryService,
   viewUserItinerariesService,
 } from './itinerary.service';
 import { CreateItineraryRequest, UpdateItineraryRequest } from './itinerary.types';
@@ -277,6 +278,54 @@ export const markItineraryAsDone = async (req: AuthRequest, res: Response) => {
     });
   } catch (error) {
     console.error('❌ Error marking itinerary as done:', error);
+    if (error instanceof Error && error.message === 'Itinerary not found') {
+      return res.status(404).json({ message: 'Itinerary not found' });
+    }
+    res.status(500).json({
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+};
+
+/**
+ * Repeat an itinerary (update with new dates and set status to 'active')
+ * PATCH /api/itineraries/repeat/:itineraryID
+ */
+export const repeatItinerary = async (req: AuthRequest, res: Response) => {
+  try {
+    console.log('🟡 repeatItinerary - req.user:', req.user);
+    const { itineraryID } = req.params;
+    const updateData = req.body;
+
+    if (!itineraryID) {
+      return res.status(400).json({ message: 'Itinerary ID is required' });
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: 'No update data provided' });
+    }
+
+    // Convert date strings to Date objects if present
+    const processedData = {
+      ...updateData,
+    };
+
+    if (updateData.startDate) {
+      processedData.startDate = new Date(updateData.startDate);
+    }
+    if (updateData.endDate) {
+      processedData.endDate = new Date(updateData.endDate);
+    }
+
+    const repeatedItinerary = await repeatItineraryService(itineraryID, processedData);
+
+    res.status(200).json({
+      message: 'Itinerary repeated successfully',
+      data: repeatedItinerary,
+    });
+  } catch (error) {
+    console.error('❌ Error repeating itinerary:', error);
     if (error instanceof Error && error.message === 'Itinerary not found') {
       return res.status(404).json({ message: 'Itinerary not found' });
     }
