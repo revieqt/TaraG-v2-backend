@@ -215,21 +215,33 @@ export const enableSOS = async (req: EnableSOSRequest): Promise<any> => {
 
     // Send email if emergency contact is provided
     if (emergencyContact && emergencyContact.trim()) {
-      try {
-        await sendEmergencyEmail(
-          emergencyContact,
+      // try {
+      //   await sendEmergencyEmail(
+      //     emergencyContact,
+      //     user,
+      //     emergencyType,
+      //     message,
+      //     locationInfo,
+      //     latitude,
+      //     longitude
+      //   );
+      //   console.log(`✅ Emergency alert sent to emergency contact`);
+      // } catch (emailError) {
+      //   console.error(`⚠️ Failed to send emergency email, but SOS is still active:`, emailError);
+      //   // Don't throw - SOS should be active even if email fails
+      // }
+
+      
+      sendEmergencyEmail(
+        emergencyContact,
           user,
           emergencyType,
           message,
           locationInfo,
           latitude,
-          longitude
-        );
-        console.log(`✅ Emergency alert sent to emergency contact`);
-      } catch (emailError) {
-        console.error(`⚠️ Failed to send emergency email, but SOS is still active:`, emailError);
-        // Don't throw - SOS should be active even if email fails
-      }
+          longitude).catch(err => {
+        console.log("Email failed", err)
+      })
     } else {
       console.log(`ℹ️ No emergency contact provided - email not sent`);
     }
