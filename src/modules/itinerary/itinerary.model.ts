@@ -1,10 +1,21 @@
 import { Schema, model, Document } from 'mongoose';
 import { ItineraryStatus } from './itinerary.types';
 
+export interface IAddress {
+  country?: string;
+  region?: string;
+  province?: string;
+  city?: string;
+  district?: string;
+  neighborhood?: string;
+  postal_code?: string;
+}
+
 export interface ILocation {
   latitude: number;
   longitude: number;
   locationName: string;
+  address?: IAddress;
   note: string;
 }
 
@@ -41,6 +52,18 @@ const LocationSchema = new Schema<ILocation>(
       type: String,
       required: true,
       trim: true,
+    },
+    address: {
+      type: {
+        country: { type: String, trim: true },
+        region: { type: String, trim: true },
+        province: { type: String, trim: true },
+        city: { type: String, trim: true },
+        district: { type: String, trim: true },
+        neighborhood: { type: String, trim: true },
+        postal_code: { type: String, trim: true },
+      },
+      default: null,
     },
     note: {
       type: String,
