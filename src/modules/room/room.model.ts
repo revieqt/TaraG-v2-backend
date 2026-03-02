@@ -49,11 +49,11 @@ const RoomSchema = new Schema<IRoom>({
   },
   itineraryID: {
     type: String,
-    default: undefined,
+    default: '',
   },
   chatID: {
     type: String,
-    required: true,
+    default: '',
   },
   admins: {
     type: [String],

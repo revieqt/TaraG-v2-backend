@@ -9,6 +9,7 @@ import { Request, Response, NextFunction } from "express";
 const tempPath = "uploads/temp";
 const profileImagesPath = "uploads/profileImages";
 const announcementsPath = "uploads/announcements";
+const roomImagesPath = "uploads/roomImages";
 
 if (!fs.existsSync(tempPath)) {
   fs.mkdirSync(tempPath, { recursive: true });
@@ -20,6 +21,10 @@ if (!fs.existsSync(profileImagesPath)) {
 
 if (!fs.existsSync(announcementsPath)) {
   fs.mkdirSync(announcementsPath, { recursive: true });
+}
+
+if (!fs.existsSync(roomImagesPath)) {
+  fs.mkdirSync(roomImagesPath, { recursive: true });
 }
 
 const storage = multer.diskStorage({
@@ -280,6 +285,55 @@ export const processLocationImage = async (
     next();
   } catch (error) {
     console.error('❌ Location image processing failed:', error);
+    if (req.file) {
+      try {
+        fs.unlinkSync(req.file.path);
+      } catch (e) {
+        // Ignore cleanup errors
+      }
+    }
+    res.status(500).json({ message: 'Failed to process image' });
+  }
+};
+
+// Middleware to process and save room images
+export const processRoomImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No image file provided' });
+    }
+
+    const file = req.file;
+    const roomID = req.body.roomID || '';
+    const ext = path.extname(file.originalname).toLowerCase();
+
+    // Generate filename: timestamp_roomID
+    const timestamp = Date.now();
+    const filename = `${timestamp}_${roomID.replace(/\//g, '_')}.jpg`;
+    const optimizedPath = path.join(roomImagesPath, filename);
+
+    // Compress and optimize image for room (1:1 ratio - square)
+    await sharp(file.path)
+      .resize(600, 600, {
+        fit: 'cover', // Crop to square
+        position: 'center'
+      })
+      .jpeg({ quality: 85, progressive: true })
+      .toFile(optimizedPath);
+
+    // Delete temporary file
+    fs.unlinkSync(file.path);
+
+    // Store the relative path in req for controller to use
+    (req as any).processedImagePath = `/uploads/roomImages/${filename}`;
+    
+    next();
+  } catch (error) {
+    console.error('Room image processing failed:', error);
     if (req.file) {
       try {
         fs.unlinkSync(req.file.path);

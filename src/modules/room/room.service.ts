@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken';
 import { RoomModel, IRoom } from './room.model';
 import { ItineraryModel } from '../itinerary/itinerary.model';
 import User from '../account/account.model';
-import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Generate a random 6-character alphanumeric invite code
@@ -35,18 +36,28 @@ const decodeTokenAndGetUserID = (token: string): string => {
 /**
  * A. Get all rooms that the user is a member of
  * Returns: { id, name, roomImage?, memberCount }
+ * Status filter: 'member' (default), 'invited', 'waiting'
  */
-export const getRoomsService = async (accessToken: string) => {
+export const getRoomsService = async (accessToken: string, status: string = 'member') => {
   try {
-    console.log('🔵 getRoomsService - Decoding token');
+    console.log(`🔵 getRoomsService - Decoding token with status filter: ${status}`);
     const userID = decodeTokenAndGetUserID(accessToken);
     console.log(`🔵 getRoomsService - UserID: ${userID}`);
 
+    // Validate status parameter
+    const validStatuses = ['member', 'invited', 'waiting'];
+    const targetStatus = validStatuses.includes(status) ? status : 'member';
+
     const rooms = await RoomModel.find({
-      'members.userID': userID,
+      'members': {
+        $elemMatch: {
+          userID: userID,
+          status: targetStatus,
+        },
+      },
     }).select('_id name roomImage members');
 
-    console.log(`🔵 getRoomsService - Found ${rooms.length} rooms`);
+    console.log(`🔵 getRoomsService - Found ${rooms.length} rooms with status '${targetStatus}'`);
 
     const formattedRooms = rooms.map((room) => ({
       id: room._id,
@@ -167,9 +178,6 @@ export const createRoomService = async (
 
     console.log(`🔵 createRoomService - Generated invite code: ${inviteCode}`);
 
-    // Generate chat ID (using UUID)
-    const chatID = uuidv4();
-
     // Create initial members array with the creator
     const members: any[] = [
       {
@@ -193,33 +201,52 @@ export const createRoomService = async (
       }
     }
 
-    // Create room object
+    // Create room object with all fields initialized
     const roomData: any = {
       name: name.trim(),
+      createdOn: new Date(),
+      updatedOn: new Date(),
       inviteCode,
-      chatID,
+      roomImage: '',
+      roomColor: '#00CAFF',
+      itineraryID: itineraryID || '',
+      chatID: '',
       admins: [userID],
       members,
-      roomColor: '#00CAFF',
-      roomImage: '',
     };
 
-    // Add itineraryID if provided
-    if (itineraryID) {
-      roomData.itineraryID = itineraryID;
-      console.log(`🔵 createRoomService - Room linked to itinerary: ${itineraryID}`);
-    }
+    console.log(`🔵 createRoomService - Room data initialized:`, roomData);
 
     const newRoom = await RoomModel.create(roomData);
 
     console.log(`🔵 createRoomService - Room created with ID: ${newRoom._id}`);
 
-    return {
+    // Get user information for members
+    const memberUserIDs = [...new Set(newRoom.members.map((m) => m.userID))];
+    const users: any[] = await User.find({ _id: { $in: memberUserIDs } }).select('_id username');
+    const userMap = new Map(users.map((u) => [u._id.toString(), u.username]));
+
+    const formattedMembers = newRoom.members.map((m) => ({
+      userID: m.userID,
+      ...(m.nickname && { nickname: m.nickname }),
+      username: userMap.get(m.userID.toString()) || 'Unknown',
+      joinedOn: m.joinedOn,
+      status: m.status,
+    }));
+
+    const response: any = {
       id: newRoom._id,
       name: newRoom.name,
       inviteCode: newRoom.inviteCode,
+      roomImage: newRoom.roomImage,
       roomColor: newRoom.roomColor,
+      itineraryID: newRoom.itineraryID,
+      chatID: newRoom.chatID,
+      admins: newRoom.admins,
+      members: formattedMembers,
     };
+
+    return response;
   } catch (error) {
     console.error('❌ Error in createRoomService:', error);
     throw error;
@@ -257,13 +284,15 @@ export const leaveRoomService = async (accessToken: string, roomID: string) => {
     if (isAdmin) {
       // Check if there are other admins
       const otherAdmins = room.admins.filter((adminID) => adminID !== userID);
-      if (otherAdmins.length === 0) {
-        console.log('❌ leaveRoomService - User is only admin');
+      // Only throw error if they're the only admin AND there are other members
+      const otherMembers = room.members.filter((m) => m.userID !== userID);
+      if (otherAdmins.length === 0 && otherMembers.length > 0) {
+        console.log('❌ leaveRoomService - User is only admin and there are other members');
         throw new Error(
           'You cannot leave the room as the only admin. Please assign another admin first.'
         );
       }
-      console.log(`🔵 leaveRoomService - User is admin, but ${otherAdmins.length} other admin(s) exist`);
+      console.log(`🔵 leaveRoomService - User is admin, checking if room will be empty after leaving`);
     }
 
     // Remove user from members
@@ -298,6 +327,273 @@ export const leaveRoomService = async (accessToken: string, roomID: string) => {
     };
   } catch (error) {
     console.error('❌ Error in leaveRoomService:', error);
+    throw error;
+  }
+};
+
+/**
+ * F. Update room image
+ * Deletes old image if exists and updates with new one
+ */
+export const updateRoomImageService = async (
+  accessToken: string,
+  roomID: string,
+  newImagePath: string
+) => {
+  try {
+    console.log(`🔵 updateRoomImageService - Decoding token for room ${roomID}`);
+    const userID = decodeTokenAndGetUserID(accessToken);
+
+    const room = await RoomModel.findById(roomID);
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    // Verify user is an admin
+    if (!room.admins.includes(userID)) {
+      throw new Error('Only admins can update room image');
+    }
+
+    const oldImagePath = room.roomImage;
+
+    // Delete old image if it exists
+    if (oldImagePath && oldImagePath !== '') {
+      try {
+        const filename = path.basename(oldImagePath);
+        const fullPath = path.join(__dirname, '../../uploads/roomImages', filename);
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+          console.log(`🔵 updateRoomImageService - Deleted old room image`);
+        }
+      } catch (err) {
+        console.warn('⚠️ Failed to delete old room image:', err);
+      }
+    }
+
+    // Update room with new image path
+    room.roomImage = newImagePath;
+    room.updatedOn = new Date();
+    await room.save();
+
+    console.log(`🔵 updateRoomImageService - Room image updated successfully`);
+  } catch (error) {
+    console.error('❌ Error in updateRoomImageService:', error);
+    throw error;
+  }
+};
+
+/**
+ * G. Update room color
+ */
+export const updateRoomColorService = async (
+  accessToken: string,
+  roomID: string,
+  color: string
+) => {
+  try {
+    console.log(`🔵 updateRoomColorService - Decoding token for room ${roomID}`);
+    const userID = decodeTokenAndGetUserID(accessToken);
+
+    const room = await RoomModel.findById(roomID);
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    // Verify user is an admin
+    if (!room.admins.includes(userID)) {
+      throw new Error('Only admins can update room color');
+    }
+
+    // Validate color format (hex color)
+    if (!/^#[0-9A-F]{6}$/i.test(color)) {
+      throw new Error('Invalid color format. Use hex format (e.g., #00CAFF)');
+    }
+
+    room.roomColor = color;
+    room.updatedOn = new Date();
+    await room.save();
+
+    console.log(`🔵 updateRoomColorService - Room color updated to ${color}`);
+  } catch (error) {
+    console.error('❌ Error in updateRoomColorService:', error);
+    throw error;
+  }
+};
+
+/**
+ * H. Update attached itinerary
+ */
+export const updateAttachedItineraryService = async (
+  accessToken: string,
+  roomID: string,
+  itineraryID: string
+) => {
+  try {
+    console.log(`🔵 updateAttachedItineraryService - Decoding token for room ${roomID}`);
+    const userID = decodeTokenAndGetUserID(accessToken);
+
+    const room = await RoomModel.findById(roomID);
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    // Verify user is an admin
+    if (!room.admins.includes(userID)) {
+      throw new Error('Only admins can update attached itinerary');
+    }
+
+    // Verify itinerary exists
+    const itinerary = await ItineraryModel.findById(itineraryID);
+    if (!itinerary) {
+      throw new Error('Itinerary not found');
+    }
+
+    room.itineraryID = itineraryID;
+    room.updatedOn = new Date();
+    await room.save();
+
+    console.log(`🔵 updateAttachedItineraryService - Room itinerary updated to ${itineraryID}`);
+  } catch (error) {
+    console.error('❌ Error in updateAttachedItineraryService:', error);
+    throw error;
+  }
+};
+
+/**
+ * I. Invite user to room
+ */
+export const inviteUserService = async (
+  accessToken: string,
+  roomID: string,
+  targetUserID: string
+) => {
+  try {
+    console.log(`🔵 inviteUserService - Decoding token for room ${roomID}`);
+    const userID = decodeTokenAndGetUserID(accessToken);
+
+    const room = await RoomModel.findById(roomID);
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    // Verify user is an admin
+    if (!room.admins.includes(userID)) {
+      throw new Error('Only admins can invite users');
+    }
+
+    // Check if user already exists in room
+    const memberExists = room.members.some((m) => m.userID === targetUserID);
+    if (memberExists) {
+      throw new Error('User is already a member of this room');
+    }
+
+    // Verify target user exists
+    const targetUser = await User.findById(targetUserID);
+    if (!targetUser) {
+      throw new Error('User not found');
+    }
+
+    // Add user to members with 'invited' status
+    room.members.push({
+      userID: targetUserID,
+      joinedOn: new Date(),
+      status: 'invited',
+    });
+
+    room.updatedOn = new Date();
+    await room.save();
+
+    console.log(`🔵 inviteUserService - User ${targetUserID} invited to room`);
+  } catch (error) {
+    console.error('❌ Error in inviteUserService:', error);
+    throw error;
+  }
+};
+
+/**
+ * J. Approve invite (change status from 'invited' to 'member')
+ */
+export const approveInviteService = async (
+  accessToken: string,
+  roomID: string,
+  userID: string
+) => {
+  try {
+    console.log(`🔵 approveInviteService - Decoding token for room ${roomID}`);
+    const requestingUserID = decodeTokenAndGetUserID(accessToken);
+
+    const room = await RoomModel.findById(roomID);
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    // Verify requesting user is an admin
+    if (!room.admins.includes(requestingUserID)) {
+      throw new Error('Only admins can approve invites');
+    }
+
+    // Find the member with 'invited' status
+    const member = room.members.find((m) => m.userID === userID);
+    if (!member) {
+      throw new Error('User is not invited to this room');
+    }
+
+    if (member.status !== 'invited') {
+      throw new Error('User is not in invited status');
+    }
+
+    // Update status to 'member'
+    member.status = 'member';
+    member.joinedOn = new Date();
+
+    room.updatedOn = new Date();
+    await room.save();
+
+    console.log(`🔵 approveInviteService - User ${userID} approved as member`);
+  } catch (error) {
+    console.error('❌ Error in approveInviteService:', error);
+    throw error;
+  }
+};
+
+/**
+ * K. Update user nickname in room
+ */
+export const updateNicknameService = async (
+  accessToken: string,
+  roomID: string,
+  targetUserID: string,
+  nickname: string
+) => {
+  try {
+    console.log(`🔵 updateNicknameService - Decoding token for room ${roomID}`);
+    const userID = decodeTokenAndGetUserID(accessToken);
+
+    const room = await RoomModel.findById(roomID);
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    // Verify requesting user is an admin
+    if (!room.admins.includes(userID)) {
+      throw new Error('Only admins can update nicknames');
+    }
+
+    // Find the member
+    const member = room.members.find((m) => m.userID === targetUserID);
+    if (!member) {
+      throw new Error('User is not a member of this room');
+    }
+
+    // Update nickname (allow empty string to clear nickname)
+    member.nickname = nickname.trim() || undefined;
+
+    room.updatedOn = new Date();
+    await room.save();
+
+    console.log(`🔵 updateNicknameService - User nickname updated`);
+  } catch (error) {
+    console.error('❌ Error in updateNicknameService:', error);
     throw error;
   }
 };
